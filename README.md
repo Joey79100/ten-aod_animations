@@ -17,7 +17,6 @@ Note that this video was made using the **[TRNG version](https://github.com/Joey
 You can:
 - Follow the [commits](https://github.com/Joey79100/ten-aod_animations/commits/master) to see the **latest updates**.
 - Read the [issues](https://github.com/Joey79100/ten-aod_animations/issues) named "_Progress tracker \*\*\*_" to see the **lists of animations** that have been remade or planned.  
-  *Note: this is a list based on the TRNG version. I will provide a list specifically for this version in the near future.*
 
 
 ## 1.2. Target engine/editor
