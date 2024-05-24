@@ -15,14 +15,14 @@ Note that this video was made using the **[TRNG version](https://github.com/Joey
 
 ## 1.1. Updates and progression
 You can:
-- Follow the [commits](https://github.com/Joey79100/trle-aod_animations/commits/master) to see the **latest updates**.
-- Read the [issues](https://github.com/Joey79100/trle-aod_animations/issues) named "_Progress tracker \*\*\*_" to see the **lists of animations** that have been remade or planned.  
+- Follow the [commits](https://github.com/Joey79100/ten-aod_animations/commits/master) to see the **latest updates**.
+- Read the [issues](https://github.com/Joey79100/ten-aod_animations/issues) named "_Progress tracker \*\*\*_" to see the **lists of animations** that have been remade or planned.  
   *Note: this is a list based on the TRNG version. I will provide a list specifically for this version in the near future.*
 
 
 ## 1.2. Target engine/editor
 The project is currently developped using **TombEngine**.
-The original **[TRNG version](https://github.com/Joey79100/trle-aod_animations)** will remain available, but I have no plan to continue working on them, as it would double the work for me.
+The original **[TRNG version](https://github.com/Joey79100/ten-aod_animations)** will remain available, but I have no plan to continue working on them, as it would double the work for me.
 
 You can build levels for [Tomb Engine (TEN)](https://tombengine.com/) using [Tomb Editor (TE)](https://github.com/TombEngine/TombEditorReleases/releases).
 
