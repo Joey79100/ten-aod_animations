@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<Name>TRLE - AOD Animations (for TEN)</Name>
+	<Name>TEN - AOD Animations</Name>
 	<GameVersion>TombEngine</GameVersion>
 	<LevelsPath>$(ProjectDirectory)\Levels</LevelsPath>
 	<ScriptPath>$(ProjectDirectory)\Engine\Scripts</ScriptPath>
