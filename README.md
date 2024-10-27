@@ -11,6 +11,21 @@ Preview (**Jul 28, 2019**):
 Note that this video was made using the **[TRNG version](https://github.com/Joey79100/trle-aod_animations)**.
 
 
+- [TRLE - AOD Animations for TombEngine](#trle---aod-animations-for-tombengine)
+- [1. The project - general information](#1-the-project---general-information)
+  - [1.1. Updates and progression](#11-updates-and-progression)
+  - [1.2. Target engine/editor](#12-target-engineeditor)
+- [2. Installation](#2-installation)
+  - [2.1. Importing the animations](#21-importing-the-animations)
+  - [2.2. Using different outfits _(Tomb Editor 1.7.1 and below)_](#22-using-different-outfits-tomb-editor-171-and-below)
+  - [2.3. Sounds](#23-sounds)
+    - [If you want to use the "**1 terrain type = 1 footstep sound**" _(Tomb Editor 1.7.2 and above)_](#if-you-want-to-use-the-1-terrain-type--1-footstep-sound-tomb-editor-172-and-above)
+  - [2.4. Using interactible objects](#24-using-interactible-objects)
+  - [2.4. Fixing ladders snapping](#24-fixing-ladders-snapping)
+- [3. Credits](#3-credits)
+- [4. See also](#4-see-also)
+
+
 # 1. The project - general information
 
 ## 1.1. Updates and progression
@@ -32,12 +47,12 @@ First, you can either:
 - Download the **playable package** if you want to playtest the animations before using them.  
   Find the big green "**Code**" menu button at the top of this page, then hit [Download ZIP](https://github.com/Joey79100/ten-aod_animations/archive/refs/heads/master.zip).
 
-- Or just download [Assets](https://github.com/Joey79100/ten-aod_animations/tree/master/Assets)/[Objects](https://github.com/Joey79100/ten-aod_animations/tree/master/Assets/Objects)/[**Lara.wad2**](https://github.com/Joey79100/ten-aod_animations/blob/master/Assets/Objects/Lara.wad2) if you **just want the animations**.
+- Or just download [Assets/Objects/**Lara.wad2**](Assets/Objects/Lara.wad2) if you **just want the animations**.
 
 Then keep reading.
 
 ## 2.1. Importing the animations
-The animations can be found in [`Assets\Objects\Lara.wad2`](Assets/Objects/Lara.wad2).
+The animations can be found in [Assets/Objects/**Lara.wad2**](Assets/Objects/Lara.wad2).
 
 _Assuming you're okay with the outfit_, you only need to **load this WAD into your project**, and update it from time to time.
 
@@ -64,13 +79,16 @@ Export/import in **WadTool** into your existing WAD2:
       3. Select the folder in which your exported the animations.
    3. Save the changes, close the animation editor, and save your WAD2.
 
-> Note: it is **not** advised to edit the `TombEngine.wad2` that comes with Tomb Editor. This file may be updated at any Tomb Editor update. Instead, copy the LARA object into another WAD2 and add it to your project, before editing it.
+> Note: it is **not** advised to edit the `TombEngine.wad2` that comes with Tomb Editor. This file may be updated at any Tomb Editor update.  
+> Instead: save the LARA object into a new WAD2, and add it to your project.
 
 
 ## 2.3. Sounds
 This package **works fine with the default TEN sounds**, and is also **compatible with its TR1-2-3-5 overrides**.
 
-If you want the "_full AOD experience_", you can use the **sound catalogs** and samples provided in this repository.
+If you want the "_full AOD experience_", you can use the resources provided in [Assets/**Sounds**](Assets/Sounds):
+- The **sound catalogs** (all the XML files)
+- The samples (all the WAV files sorted in subfolders)
 
 ### If you want to use the "**1 terrain type = 1 footstep sound**" _(Tomb Editor 1.7.2 and above)_
 > Note: There is a bug in Tomb Editor 1.7.1 and below: footsteps sounds "**Custom 3**" to "**Custom 8**" will always revert to "**Custom 2**" when you reload your project. This will be fixed in the next version.
@@ -112,9 +130,20 @@ SARCOPHAGUS        | Sarcophagus                 | -                 | -
 SEQUENCE_SWITCH    | Big button switch           | -                 | -
 
 
+## 2.4. Fixing ladders snapping
+The engine implementation of ladders in TR2-5 includes hardcoded frame numbers. Changing the speed of ladder animations results in Lara snapping when she stops moving up or down.
+**Bagas** has written a script which fixes part of this snapping:
+1. Download [Engine/Scripts/Addons/**AOD_Animations.lua**](Engine/Scripts/Addons/AOD_Animations.lua) and put it in the same location in your game folder.
+2. Open your `Engine/Scripts/Levels/{your-level-name}.lua` file, and add the following line at the very top of the file:
+   ```lua
+   require("Addons.AOD_Animation")
+   ```
+
+
 # 3. Credits
 - Direct contributions
   - [Gecko](https://trcustoms.org/users/70): Testing and error reporting for the TEN version
+  - [Bagas](https://trcustoms.org/users/2785): Lua script for fixing ladders snapping
   - [Sezz](https://github.com/Sezzary): Info about TEN's direction & changes regarding animations, general improvements to Lara's handling
 - Indirect contributions
   - [Krystian](https://www.trsearch.org/member/3312): Animation utilities, and help generally speaking

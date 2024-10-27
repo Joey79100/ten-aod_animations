@@ -9,12 +9,12 @@
 -- This image should be used for static title screen background (as in TR1-TR3).
 -- For now it is not implemented.
 
-Flow.SetTitleScreenImagePath("Screens\\main.jpg")
+-- Flow.SetTitleScreenImagePath("Screens\\main.jpg")
 
 -- Set overall amount of secrets in game.
 -- If set to 0, secrets won't be displayed in statistics.
 
-Flow.SetTotalSecretCount(5)
+Flow.SetTotalSecretCount(0)
 
 -- Disable/enable flycheat globally
 
@@ -47,10 +47,7 @@ demo.nameKey = "level_demo"
 demo.scriptFile = "Scripts\\Levels\\Demo\\Demo.lua"
 demo.ambientTrack = AudioTracks.AMB_Paris_Outside
 demo.levelFile = "Data\\Demo.ten"
-demo.loadScreenFile = "Screens\\black.jpg"
-
---demo.weather = 1 -- 0 is no weather, 1 is rain, 2 is snow.
---demo.weatherStrength = 0.75 -- Strength varies from 0 to 1 (floating-point value, e.g. 0.5 means half-strength).
+-- demo.loadScreenFile = "Screens\\black.jpg"
 
 demo.horizon = true
 demo.farView = 64
@@ -69,10 +66,7 @@ demoTEN.nameKey = "level_demo_ten"
 demoTEN.scriptFile = "Scripts\\Levels\\Demo\\Demo.lua"
 demoTEN.ambientTrack = AudioTracks.AMB_Paris_Outside
 demoTEN.levelFile = "Data\\DemoTEN.ten"
-demoTEN.loadScreenFile = "Screens\\black.jpg"
-
---demoTEN.weather = 1 -- 0 is no weather, 1 is rain, 2 is snow.
---demoTEN.weatherStrength = 0.75 -- Strength varies from 0 to 1 (floating-point value, e.g. 0.5 means half-strength).
+-- demoTEN.loadScreenFile = "Screens\\black.jpg"
 
 demoTEN.horizon = true
 demoTEN.farView = 64
