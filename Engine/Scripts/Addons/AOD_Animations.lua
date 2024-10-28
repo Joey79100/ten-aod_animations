@@ -18,7 +18,7 @@ LevelFuncs.External.AOD_Animations.FixLadderStopSnap = function()
 	local LaraAnim = Lara:GetAnim()
 	local LaraFrame = Lara:GetFrame()
 
-	print("Anim: "..LaraAnim..":"..LaraFrame.." | State: "..Lara:GetState().."->"..Lara:GetTargetState().." | PosY: "..Lara:GetPosition().y)
+	-- print("Anim: "..LaraAnim..":"..LaraFrame.." | State: "..Lara:GetState().."->"..Lara:GetTargetState().." | PosY: "..Lara:GetPosition().y)
 
 	if LaraAnim == 161 --[[ LADDER_UP ]] then
 		if LaraFrame >= 26 and LaraFrame <= 29 then
@@ -47,4 +47,18 @@ LevelFuncs.External.AOD_Animations.FixLadderStopSnap = function()
 
 end
 
+LevelFuncs.External.AOD_Animations.AODLook = function()
+	if ProcessedAODLook ~= true and Lara:GetAnim() == 103 and KeyIsHeld(ActionID.LOOK) and Lara:GetHandStatus() == 0 and Lara:GetRotation().y == 0 then
+		local rot = Lara:GetRotation()
+		Lara:SetAnim(383)
+		ProcessedAODLook = true
+	end
+	if Lara:GetAnim() == 383 and KeyIsHeld(ActionID.LOOK) == false then
+		local frame = Lara:GetFrame()
+		Lara:SetAnim(103)
+		Lara:SetFrame(frame)
+	end
+end
+
 AddCallback(CallbackPoint.PRELOOP, LevelFuncs.External.AOD_Animations.FixLadderStopSnap)
+AddCallback(CallbackPoint.PRELOOP, LevelFuncs.External.AOD_Animations.AODLook)
