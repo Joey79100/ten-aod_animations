@@ -11,7 +11,6 @@ Preview (**Jul 28, 2019**):
 Note that this video was made using the **[TRNG version](https://github.com/Joey79100/trle-aod_animations)**.
 
 
-- [TRLE - AOD Animations for TombEngine](#trle---aod-animations-for-tombengine)
 - [1. The project - general information](#1-the-project---general-information)
   - [1.1. Updates and progression](#11-updates-and-progression)
   - [1.2. Target engine/editor](#12-target-engineeditor)
