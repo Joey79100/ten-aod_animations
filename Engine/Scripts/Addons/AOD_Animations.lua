@@ -48,10 +48,10 @@ LevelFuncs.External.AOD_Animations.FixLadderStopSnap = function()
 end
 
 LevelFuncs.External.AOD_Animations.AODLook = function()
-	if ProcessedAODLook ~= true and Lara:GetAnim() == 103 and KeyIsHeld(ActionID.LOOK) and Lara:GetHandStatus() == 0 and Lara:GetRotation().y == 0 then
+	if GameVars.ProcessedAODLook ~= true and Lara:GetAnim() == 103 and Lara:GetFrame() > 108 and KeyIsHit(ActionID.LOOK) and Lara:GetHandStatus() == 0 and Lara:GetRotation().y == 0 then
 		local rot = Lara:GetRotation()
 		Lara:SetAnim(383)
-		ProcessedAODLook = true
+		GameVars.ProcessedAODLook = true
 	end
 	if Lara:GetAnim() == 383 and KeyIsHeld(ActionID.LOOK) == false then
 		local frame = Lara:GetFrame()
