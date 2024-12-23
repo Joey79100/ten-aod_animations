@@ -135,7 +135,7 @@ The engine implementation of ladders in TR2-5 includes hardcoded frame numbers. 
 1. Download [Engine/Scripts/Addons/**AOD_Animations.lua**](Engine/Scripts/Addons/AOD_Animations.lua) and put it in the same location in your game folder.
 2. Open your `Engine/Scripts/Levels/{your-level-name}.lua` file, and add the following line at the very top of the file:
    ```lua
-   require("Addons.AOD_Animation")
+   require("Addons.AOD_Animations")
    ```
 
 
