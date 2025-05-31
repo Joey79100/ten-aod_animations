@@ -7,12 +7,12 @@
 	<LaunchFilePath>$(ProjectDirectory)\PLAY.exe</LaunchFilePath>
 	<Levels>
 		<ProjectLevel>
-			<Name>Demo</Name>
-			<FolderPath>$(ProjectDirectory)\Levels\Demo</FolderPath>
-		</ProjectLevel>
-		<ProjectLevel>
 			<Name>Title</Name>
 			<FolderPath>$(ProjectDirectory)\Levels\Title</FolderPath>
+		</ProjectLevel>
+		<ProjectLevel>
+			<Name>Demo</Name>
+			<FolderPath>$(ProjectDirectory)\Levels\Demo</FolderPath>
 		</ProjectLevel>
 	</Levels>
 </Project>

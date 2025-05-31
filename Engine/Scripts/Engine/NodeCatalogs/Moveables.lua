@@ -12,7 +12,7 @@ end
 -- !Section "Moveable parameters"
 -- !Description "Compares selected moveable health with given value."
 -- !Conditional "True"
--- !Arguments "NewLine, Moveables, Object to check" "NewLine, CompareOperator, 70, Kind of check"
+-- !Arguments "NewLine, Moveables, Moveable to check" "NewLine, CompareOperator, 70, Kind of check"
 -- !Arguments "Numerical, 30, Hit points value, [ 0 | 3000 | 0 | 1 | 5 ]"
 
 LevelFuncs.Engine.Node.TestHitPoints = function(moveableName, operator, value)
@@ -24,7 +24,7 @@ end
 -- !Section "Moveable parameters"
 -- !Description "Checks if moveable belongs to a certain slot ID."
 -- !Conditional "True"
--- !Arguments "NewLine, Moveables, Object to check" "NewLine, WadSlots, Object ID to compare to"
+-- !Arguments "NewLine, Moveables, Moveable to check" "NewLine, WadSlots, Object ID to compare to"
 
 LevelFuncs.Engine.Node.TestMoveableId = function(moveableName, objectId)
 	return TEN.Objects.GetMoveableByName(moveableName):GetObjectID() == objectId
@@ -34,11 +34,22 @@ end
 -- !Section "Moveable parameters"
 -- !Description "Checks if moveable's name is the one specified."
 -- !Conditional "True"
--- !Arguments "NewLine, Moveables, Object to check"
--- !Arguments "NewLine, String, Object name to compare to"
+-- !Arguments "NewLine, Moveables, Moveable to check"
+-- !Arguments "NewLine, String, Moveable name to compare to"
 
 LevelFuncs.Engine.Node.TestMoveableName = function(moveableName, name)
 	return TEN.Objects.GetMoveableByName(moveableName):GetName() == name
+end
+
+-- !Name "If name of a moveable contains..."
+-- !Section "Moveable parameters"
+-- !Description "Checks if moveable's name contains specified string."
+-- !Conditional "True"
+-- !Arguments "NewLine, Moveables, Moveable to check"
+-- !Arguments "NewLine, String, String to search in moveable name"
+
+LevelFuncs.Engine.Node.TestMoveableNamePart = function(moveableName, namePart)
+	return (string.find(TEN.Objects.GetMoveableByName(moveableName):GetName(), namePart))
 end
 
 -- !Name "If animation of a moveable is..."
@@ -49,6 +60,16 @@ end
 
 LevelFuncs.Engine.Node.TestMoveableAnimation = function(moveableName, animationId)
 	return TEN.Objects.GetMoveableByName(moveableName):GetAnim() == animationId
+end
+
+-- !Name "If animation slot of a moveable is..."
+-- !Section "Moveable parameters"
+-- !Description "Checks if moveable is currently playing animation from a specified object slot."
+-- !Conditional "True"
+-- !Arguments "NewLine, Moveables" "NewLine, WadSlots, Moveable slot ID to check"
+
+LevelFuncs.Engine.Node.TestMoveableAnimationSlot = function(moveableName, slotId)
+	return TEN.Objects.GetMoveableByName(moveableName):GetAnimSlot() == slotId
 end
 
 -- !Name "If animation of a moveable is complete..."
@@ -147,6 +168,16 @@ LevelFuncs.Engine.Node.TestMoveableOCB = function(moveableName, value)
 	return (ocb == value)
 end
 
+-- !Name "If moveable is collidable..."
+-- !Section "Moveable state"
+-- !Description "Checks if moveable is collidable."
+-- !Conditional "True"
+-- !Arguments "NewLine, Moveables"
+
+LevelFuncs.Engine.Node.TestMoveableCollidability = function(moveableName)
+	return TEN.Objects.GetMoveableByName(moveableName):GetCollidable()
+end
+
 -- !Name "If mesh number of a moveable is visible..."
 -- !Section "Moveable parameters"
 -- !Description "Checks if moveable's mesh index is visible."
@@ -155,7 +186,7 @@ end
 -- !Arguments "Numerical, 30, [ 0 | 31 ], Mesh index to check"
 
 LevelFuncs.Engine.Node.TestMoveableMeshVisibility = function(moveableName, value)
-	return TEN.Objects.GetMoveableByName(moveableName):MeshIsVisible(value)
+	return TEN.Objects.GetMoveableByName(moveableName):GetMeshVisible(value)
 end
 
 -- !Name "If moveable is on the line of sight..."
@@ -216,14 +247,34 @@ LevelFuncs.Engine.Node.TestMoveableDistanceWithStatic = function(operator, value
 
 	return LevelFuncs.Engine.Node.CompareValue(distance, value, operator)
 end
+			   
+-- !Name "Create moveable"
+-- !Section "Moveable state"
+-- !Description "Create a new moveable object and activate it"
+-- !Arguments "NewLine, WadSlots, 50, Choose moveable slot to create"
+-- !Arguments "String, 50, Lua name for new moveable"
+-- !Arguments "NewLine, Vector3, 50, [ -1000000 | 1000000 | 0 | 1 | 32 ], Moveable position"
+-- !Arguments "Numerical, 50, [ -360 | 360 | 2 | 1 | 5 ], Rotation value to define"
+-- !Arguments "NewLine, Rooms, 20, Choose room for moveable to Create in. \nRequired for intelligent moveables such as enemies that use pathfinding"
+-- !Arguments "Numerical, 20, [ 0 | 1000 | 0 ], Starting animation (default 0)"
+-- !Arguments "Numerical, 20, [ 0 | 1000 | 0 ], Starting frame of animation (default 0)"
+-- !Arguments "Numerical, 20, [ 0 | 100 | 0 ], Starting health of moveable (default 100)"
+-- !Arguments "Numerical, 20, [ -1000 | 1000 | 0 ], OCB of moveable (default 0)"
+
+
+LevelFuncs.Engine.Node.CreateMoveable = function(moveableSlot, moveableName, pos, rot, roomName, anim, frame, health, ocb)
+    local roomNumber = GetRoomByName(roomName):GetRoomNumber()
+    local newMoveable = Moveable(moveableSlot, moveableName, pos, rot, roomNumber, anim, frame, health, ocb)
+    newMoveable:Enable()
+end
 
 -- !Name "Enable moveable"
 -- !Section "Moveable state"
 -- !Description "Enables moveable."
--- !Arguments "NewLine, Moveables"
+-- !Arguments "NewLine, Moveables, 80" "Numerical, 20, [ 0 | 256 | 2 | 0.1 | 1 ], {0}, Timer"
 
-LevelFuncs.Engine.Node.EnableMoveable = function(moveableName)
-	TEN.Objects.GetMoveableByName(moveableName):Enable()
+LevelFuncs.Engine.Node.EnableMoveable = function(moveableName, timer)
+	TEN.Objects.GetMoveableByName(moveableName):Enable(timer)
 end
 
 -- !Name "Disable moveable"
@@ -235,6 +286,15 @@ LevelFuncs.Engine.Node.DisableMoveable = function(moveableName)
 	TEN.Objects.GetMoveableByName(moveableName):Disable()
 end
 
+-- !Name "Set moveable collision state"
+-- !Section "Moveable state"
+-- !Description "Sets collision state of a moveable."
+-- !Arguments "NewLine, Moveables, 80" "Boolean, 20, Collidable"
+
+LevelFuncs.Engine.Node.SetMoveableCollidability = function(moveableName, state)
+	return TEN.Objects.GetMoveableByName(moveableName):SetCollidable(state)
+end
+
 -- !Name "Set moveable's animation"
 -- !Section "Moveable parameters"
 -- !Description "Sets moveable's animation."
@@ -242,6 +302,15 @@ end
 
 LevelFuncs.Engine.Node.SetMoveableAnimation = function(moveableName, animationId)
 	TEN.Objects.GetMoveableByName(moveableName):SetAnim(animationId)
+end
+
+-- !Name "Set moveable's animation from another slot"
+-- !Section "Moveable parameters"
+-- !Description "Sets moveable's animation from another slot."
+-- !Arguments "NewLine, Moveables, 80" "Numerical, 20, [ 0 | 1000 ], Animation ID"  "NewLine, WadSlots, Moveable slot ID"
+
+LevelFuncs.Engine.Node.SetMoveableAnimationFromAnotherSlot = function(moveableName, animationId, slotId)
+	TEN.Objects.GetMoveableByName(moveableName):SetAnim(animationId, slotId)
 end
 
 -- !Name "Set moveable's state"
@@ -255,7 +324,7 @@ end
 
 -- !Name "Shatter moveable"
 -- !Section "Moveable state"
--- !Description "Shatters object in similar way to shatterable statics."
+-- !Description "Shatters moveable in similar way to shatterable statics."
 -- !Arguments "NewLine, Moveables"
 
 LevelFuncs.Engine.Node.ShatterMoveable = function(moveableName)
@@ -274,7 +343,7 @@ end
 
 -- !Name "Explode moveable"
 -- !Section "Moveable state"
--- !Description "Explodes object."
+-- !Description "Explodes moveable."
 -- !Arguments "NewLine, Moveables"
 
 LevelFuncs.Engine.Node.ExplodeMoveable = function(moveableName)
@@ -354,6 +423,26 @@ LevelFuncs.Engine.Node.SetMoveableRotation = function(operation, value, moveable
 	moveable:SetRotation(rotation)
 end
 
+-- !Name "Modify scale of a moveable"
+-- !Section "Moveable parameters"
+-- !Description "Set given moveable scale separately for every axis. For vsual effect only."
+-- !Arguments "NewLine, Enumeration, [ Change | Set ], 25, Change adds/subtracts given value while Set forces it."
+-- !Arguments "Vector3, [ 0 | 256 | 2 | 0.1 | 1 ], 75, { TEN.Vec3(1,1,1) }, Scale value to define"
+-- !Arguments "NewLine, Moveables"
+
+LevelFuncs.Engine.Node.SetMoveableScale = function(operation, value, moveableName)
+	local moveable = TEN.Objects.GetMoveableByName(moveableName)
+	local scale = moveable:GetScale();
+
+	if (operation == 0) then
+		scale = scale + value
+	else
+		scale = value
+	end
+
+	moveable:SetScale(scale)
+end
+
 -- !Name "Move moveable to another moveable"
 -- !Section "Moveable parameters"
 -- !Description "Moves moveable to a position of another moveable."
@@ -372,13 +461,56 @@ LevelFuncs.Engine.Node.SetMoveablePositionToAnotherMoveable = function(rotate, d
 	end
 end
 
--- !Name "Set moveable colour"
+-- !Name "Shift moveable towards its direction"
+-- !Section "Moveable parameters"
+-- !Description "Shifts moveable to a relative distance, towards the direction it is facing."
+-- !Arguments "NewLine, Moveables, Moveable to move, 85"
+-- !Arguments "Numerical, [ -65535 | 65535 ], {256}, 15, Distance"
+
+LevelFuncs.Engine.Node.ShiftMoveable = function(moveableName, distance)
+	local moveable = TEN.Objects.GetMoveableByName(moveableName)
+
+	local angle = math.rad(moveable:GetRotation().y)
+	local dx = distance * math.sin(angle)
+	local dz = distance * math.cos(angle)
+
+	local newPosition = moveable:GetPosition()
+
+	newPosition.x = newPosition.x + dx
+	newPosition.z = newPosition.z + dz
+
+	moveable:SetPosition(newPosition)
+end
+
+-- !Name "Set moveable color"
 -- !Section "Moveable parameters"
 -- !Description "Sets moveable tint to a given value."
--- !Arguments "NewLine, Moveables, 80" "Color, 20, Moveable colour"
+-- !Arguments "NewLine, Moveables, 80" "Color, 20, Moveable color"
 
 LevelFuncs.Engine.Node.SetMoveableColor = function(moveableName, color)
+	color.a = TEN.Objects.GetMoveableByName(moveableName):GetColor().a
 	TEN.Objects.GetMoveableByName(moveableName):SetColor(color)
+end
+
+-- !Name "Set moveable transparency"
+-- !Section "Moveable parameters"
+-- !Description "Sets moveable transparency to a given value."
+-- !Arguments "NewLine, Moveables, 80" "Numerical, 20, [ 0 | 255 | 0 | 1 | 5 ], {255}, Moveable transparency"
+
+LevelFuncs.Engine.Node.SetMoveableTransparency = function(moveableName, transparency)
+	local color = TEN.Objects.GetMoveableByName(moveableName):GetColor()
+	color.a = transparency
+	TEN.Objects.GetMoveableByName(moveableName):SetColor(color)
+end
+
+-- !Name "Set moveable visibility"
+-- !Description "Sets moveable visibility"
+-- !Section "Moveable parameters"
+-- !Arguments "NewLine, Moveables, 80"
+-- !Arguments "Enumeration, [ Visible  | Invisible ], 20, Visibility"
+LevelFuncs.Engine.Node.SetMoveableVisibility = function(moveableName, state)
+	local visibility = (state == 0) and true or false
+	TEN.Objects.GetMoveableByName(moveableName):SetVisible(visibility)
 end
 
 -- !Name "Set specified moveable mesh visibility"
@@ -388,11 +520,7 @@ end
 -- !Arguments "Numerical, 15, [ 0 | 31 ], Mesh index to check" "Boolean, 15, Visible"
 
 LevelFuncs.Engine.Node.SetMoveableMeshVisibility = function(moveableName, value, state)
-	if (state == true) then
-		TEN.Objects.GetMoveableByName(moveableName):ShowMesh(value)
-	else
-		TEN.Objects.GetMoveableByName(moveableName):HideMesh(value)
-	end
+	TEN.Objects.GetMoveableByName(moveableName):SetMeshVisible(value,state)
 end
 
 -- !Name "Swap specified moveable mesh with another"
@@ -426,9 +554,8 @@ end
 -- !Section "Moveable state"
 -- !Description "Assigns specific effect to a moveable."
 -- !Arguments "Enumeration, 30, [ Fire | Sparks | Smoke | Electric ignite | Red ignite ], Effect type to set"
--- !Arguments "Numerical, 13, [ -1 | 99 ], Effect timeout (set to -1 for indefinite timeout)"
+-- !Arguments "Numerical, 13, [ -1 | 99 ], {-1}, Effect timeout (set to -1 for indefinite timeout)"
 -- !Arguments "NewLine, Moveables, Moveable to check"
-
 
 LevelFuncs.Engine.Node.SetMoveableEffect = function(effectID, timeout, moveableName)
 	TEN.Objects.GetMoveableByName(moveableName):SetEffect(effectID + 1, timeout)
@@ -437,12 +564,50 @@ end
 -- !Name "Set custom moveable effect"
 -- !Section "Moveable state"
 -- !Description "Assigns custom colored burn effect to a moveable."
--- !Arguments "Color, 10, Effect primary colour"
--- !Arguments "Color, 10, Effect secondary colour"
+-- !Arguments "Color, 10, Effect primary color"
+-- !Arguments "Color, 10, Effect secondary color"
 -- !Arguments "Numerical, 13, [ -1 | 99 ], Effect timeout (set to -1 for indefinite timeout)"
 -- !Arguments "NewLine, Moveables, Moveable to check"
-
 
 LevelFuncs.Engine.Node.SetCustomMoveableEffect = function(primary, secondary, timeout, moveableName)
 	TEN.Objects.GetMoveableByName(moveableName):SetCustomEffect(primary, secondary, timeout)
 end
+
+-- !Name "Remove moveable effect"
+-- !Section "Moveable state"
+-- !Description "Remove effect from moveable"
+-- !Arguments "NewLine, Moveables, Select moveable to remove effect from."
+
+LevelFuncs.Engine.Node.RemoveMoveableEffect = function(moveable)
+	TEN.Objects.GetMoveableByName(moveable):SetEffect(TEN.Effects.EffectID.NONE)
+end
+
+-- !Name "Modify ItemFlag of a moveable"
+-- !Section "Moveable parameters"
+-- !Description "Modify ItemFlag for moveable. Used for extended customisation of certain moveables."
+-- !Arguments "NewLine,Moveables, 70, Choose moveable"
+-- !Arguments "Numerical, 13, [ 0 | 7 ], ItemFlag index to change"
+-- !Arguments "Numerical, 17, [ -32768 | 32767 | 0 ], Value to store in moveable's ItemFlags
+
+LevelFuncs.Engine.Node.ModifyItemFlag = function (moveable, itemFlagLocation, itemFlagValue)
+	TEN.Objects.GetMoveableByName(moveable):SetItemFlags(itemFlagValue,itemFlagLocation)
+end
+
+-- !Name "If value stored in moveable's ItemFlag is..."
+-- !Section "Moveable parameters"
+-- !Description "Checks current value contained inside a given ItemFlag"
+-- !Conditional "True"
+-- !Arguments "NewLine,Moveables, 70, Choose moveable"
+-- !Arguments "Numerical, 13, [ 0 | 7 ], ItemFlag index to check"
+-- !Arguments "Numerical, 17, [ -32768 | 32767 | 0 ], Value stored in ItemFlag
+
+LevelFuncs.Engine.Node.CheckItemFlag = function(moveable, itemFlagLocation, itemFlagValue)
+    local itemFlag = TEN.Objects.GetMoveableByName(moveable):GetItemFlags(itemFlagLocation)
+    
+    if itemFlag == itemFlagValue then
+        return true
+    else
+        return false
+    end
+end
+	

@@ -4,9 +4,10 @@
 -- !Description "A count of 0 will add the default pickup amount of that item."
 -- !Arguments "NewLine, 80, WadSlots, [ _ITEM ], Object to add to Lara's inventory."
 -- !Arguments "20, Numerical, [ 0 | 1000 ], Amount of items to add (0 to give default amount)."
+-- !Arguments "NewLine, Boolean , 100, Display the item in the pickup summary"
 
-LevelFuncs.Engine.Node.AddInventoryItem = function(item, count)
-    TEN.Inventory.GiveItem(item, count)
+LevelFuncs.Engine.Node.AddInventoryItem = function(item, count, addToPickupSummary)
+    TEN.Inventory.GiveItem(item, count, addToPickupSummary)
 end
 
 -- !Name "Remove item from inventory"
@@ -24,6 +25,23 @@ LevelFuncs.Engine.Node.RemoveInventoryItem = function(item, count)
     else
         TEN.Inventory.SetItemCount(item, currentCount - count)
     end
+end
+
+-- !Name "Set last used item"
+-- !Section "Inventory"
+-- !Description "Sets last used inventory item. If item will not be handled by the engine, 'No' sound will play."
+-- !Arguments "NewLine, 58, WadSlots, [ _ITEM ], Item to check"
+
+LevelFuncs.Engine.Node.SetUsedItem = function(item)
+    TEN.Inventory.SetUsedItem(item)
+end
+
+-- !Name "Clear last used item"
+-- !Section "Inventory"
+-- !Description "Clears last used inventory item. Can be needed to avoid playing of 'No' sound."
+
+LevelFuncs.Engine.Node.ClearUsedItem = function()
+    TEN.Inventory.ClearUsedItem()
 end
 
 -- !Name "If item is present in inventory..."
@@ -46,4 +64,20 @@ end
 
 LevelFuncs.Engine.Node.TestInventoryItemCount = function(item, operator, count)
     return LevelFuncs.Engine.Node.CompareValue(TEN.Inventory.GetItemCount(item), count, operator)
+end
+
+-- !Name "If last used item is..."
+-- !Section "Inventory"
+-- !Description "Checks last used inventory item. If condition is met and item is recognized, it will be automatically cleared."
+-- !Conditional "True"
+-- !Arguments "NewLine, WadSlots, [ _ITEM ], Item to check"
+
+LevelFuncs.Engine.Node.TesttUsedItem = function(item)
+    local itemWasUsed = (TEN.Inventory.GetUsedItem() == item)
+
+	if itemWasUsed then
+		TEN.Inventory.ClearUsedItem(item)
+	end
+
+	return itemWasUsed
 end

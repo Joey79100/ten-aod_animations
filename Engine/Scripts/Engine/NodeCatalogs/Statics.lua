@@ -1,5 +1,5 @@
 ﻿-- !Name "If static mesh is visible..."
--- !Section "Static mesh state"
+-- !Section "Static mesh parameters"
 -- !Description "Checks if static mesh is visible."
 -- !Conditional "True"
 -- !Arguments "NewLine, Statics"
@@ -45,6 +45,28 @@ end
 LevelFuncs.Engine.Node.TestStaticScale = function(staticName, operator, value)
 	local scale = TEN.Objects.GetStaticByName(staticName):GetScale()
 	return LevelFuncs.Engine.Node.CompareValue(scale, value, operator)
+end
+
+-- !Name "If hit points of a shatterable static mesh is..."
+-- !Section "Static mesh parameters"
+-- !Description "Compares selected static mesh hit points with given value.\nThis node is only applicable to static meshes in SHATTER slots (50-59)"
+-- !Conditional "True"
+-- !Arguments "NewLine, Statics, Static mesh to check" "NewLine, CompareOperator, 70, Kind of check"
+-- !Arguments "Numerical, 30, Scale value, [ 0 | 1024 | 0 ]"
+
+LevelFuncs.Engine.Node.TestStaticHP = function(staticName, operator, value)
+	local hp = TEN.Objects.GetStaticByName(staticName):GetHP()
+	return LevelFuncs.Engine.Node.CompareValue(hp, value, operator)
+end
+
+-- !Name "If static mesh is collidable..."
+-- !Section "Static mesh parameters"
+-- !Description "Checks if given static mesh is collidable."
+-- !Conditional "True"
+-- !Arguments "NewLine, Statics, Static mesh to check"
+
+LevelFuncs.Engine.Node.TestStaticCollision = function(staticName)
+	return TEN.Objects.GetStaticByName(staticName):GetCollidable()
 end
 
 -- !Name "If collision of a static mesh is solid..."
@@ -128,7 +150,7 @@ end
 -- !Section "Static mesh parameters"
 -- !Description "Set given static mesh scale."
 -- !Arguments "Enumeration, [ Change | Set ], 20, Change adds/subtracts given value while Set forces it."
--- !Arguments "Numerical, [ 0 | 256 | 2 | 1 | 5 ], 15, Scale value to define", "NewLine, Statics"
+-- !Arguments "Numerical, [ 0 | 256 | 2 | 1 | 5 ], {1}, 15, Scale value to define", "NewLine, Statics"
 
 LevelFuncs.Engine.Node.SetStaticScale = function(operation, value, staticName)
 	local stat = TEN.Objects.GetStaticByName(staticName)
@@ -141,19 +163,61 @@ LevelFuncs.Engine.Node.SetStaticScale = function(operation, value, staticName)
 	end
 end
 
--- !Name "Set static mesh colour"
+-- !Name "Shift static mesh towards its direction"
+-- !Section "Static mesh parameters"
+-- !Description "Shifts static mesh to a relative distance, towards the direction it is facing."
+-- !Arguments "NewLine, Statics, Statics mesh to move, 85"
+-- !Arguments "Numerical, [ -65535 | 65535 ], {256}, 15, Distance"
+
+LevelFuncs.Engine.Node.ShiftStatic = function(staticName, distance)
+	local static = TEN.Objects.GetStaticByName(staticName)
+
+	local angle = math.rad(static:GetRotation().y)
+	local dx = distance * math.sin(angle)
+	local dz = distance * math.cos(angle)
+
+	local newPosition = static:GetPosition()
+
+	newPosition.x = newPosition.x + dx
+	newPosition.z = newPosition.z + dz
+
+	static:SetPosition(newPosition)
+end
+
+-- !Name "Set static mesh color"
 -- !Section "Static mesh parameters"
 -- !Description "Sets static mesh tint to a given value."
--- !Arguments "NewLine, Statics, 80" "Color, 20, Static mesh colour"
+-- !Arguments "NewLine, Statics, 80" "Color, 20, Static mesh color"
 
 LevelFuncs.Engine.Node.SetStaticColor = function(staticName, color)
+	color.a = TEN.Objects.GetStaticByName(staticName):GetColor().a
 	TEN.Objects.GetStaticByName(staticName):SetColor(color)
+end
+
+-- !Name "Set static mesh transparency"
+-- !Section "Static mesh parameters"
+-- !Description "Sets static mesh transparency to a given value."
+-- !Arguments "NewLine, Statics, 80" "Numerical, 20, [ 0 | 255 | 0 | 1 | 5 ], {255}, Static mesh transparency"
+
+LevelFuncs.Engine.Node.SetStaticTransparency = function(staticName, transparency)
+	local color = TEN.Objects.GetStaticByName(staticName):GetColor()
+	color.a = transparency
+	TEN.Objects.GetStaticByName(staticName):SetColor(color)
+end
+
+-- !Name "Set static mesh collision state"
+-- !Section "Static mesh parameters"
+-- !Description "If set, static will be collidable, if not set, it will be traversable."
+-- !Arguments "Boolean, 20, {true}, Collidable"  "NewLine, Statics"
+
+LevelFuncs.Engine.Node.SetStaticCollisionStatus = function(solid, staticName)
+	TEN.Objects.GetStaticByName(staticName):SetCollidable(solid)
 end
 
 -- !Name "Set static mesh collision mode"
 -- !Section "Static mesh parameters"
 -- !Description "If solid flag is unset, collision will be soft."
--- !Arguments "Boolean, 15, Solid"  "NewLine, Statics"
+-- !Arguments "Boolean, 15, {true}, Solid"  "NewLine, Statics"
 
 LevelFuncs.Engine.Node.SetStaticCollisionMode = function(solid, staticName)
 	TEN.Objects.GetStaticByName(staticName):SetSolid(solid)
@@ -167,3 +231,14 @@ end
 LevelFuncs.Engine.Node.ShatterStatic = function(staticName)
 	TEN.Objects.GetStaticByName(staticName):Shatter()
 end
+
+-- !Name "Set hit points for a shatterable static mesh"
+-- !Section "Static mesh parameters"
+-- !Description "Sets hit points for shatter objects.\nThis node is only applicable to static meshes in SHATTER slots (50-59)"
+-- !Arguments "Newline,Statics, 70, Static object."
+-- !Arguments "Numerical, 30, [ 0 | 1024 ], Hit Points"
+
+LevelFuncs.Engine.Node.SetShatterHP = function(staticName, HP)
+    TEN.Objects.GetStaticByName(staticName):SetHP(HP)
+end
+

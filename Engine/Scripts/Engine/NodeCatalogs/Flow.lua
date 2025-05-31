@@ -56,7 +56,7 @@ end
 -- !Arguments "NewLine, Moveables, Activator for the event (when necessary)"
 
 LevelFuncs.Engine.Node.RunEventSet = function(setName, eventType, activator)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -71,7 +71,7 @@ end
 -- !Arguments "VolumeEvents, 35, Event to enable"
 
 LevelFuncs.Engine.Node.EnableEvent = function(setName, eventType)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -86,7 +86,7 @@ end
 -- !Arguments "VolumeEvents, 35, Event to disable"
 
 LevelFuncs.Engine.Node.DisableEvent = function(setName, eventType)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -103,7 +103,7 @@ end
 -- !Arguments "NewLine, Moveables, Activator for the event (when necessary)"
 
 LevelFuncs.Engine.Node.RunGlobalEventSet = function(setName, eventType, activator)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -118,7 +118,7 @@ end
 -- !Arguments "GlobalEvents, 35, Event to enable"
 
 LevelFuncs.Engine.Node.EnableGlobalEvent = function(setName, eventType)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -133,7 +133,7 @@ end
 -- !Arguments "GlobalEvents, 35, Event to disable"
 
 LevelFuncs.Engine.Node.DisableGlobalEvent = function(setName, eventType)
-	if (setName == '' or setName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(setName)) then
 		print("There is no specified event set in level!")
 		return
 	end
@@ -149,7 +149,7 @@ end
 -- !Arguments "NewLine, LuaScript, Target Lua script function" "NewLine, String, Arguments"
 
 LevelFuncs.Engine.Node.RunLuaScript = function(funcName, args)
-	if (funcName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(funcName)) then
 		print("There is no specified function in level script!")
 		return
 	end
@@ -167,7 +167,7 @@ end
 -- !Arguments "NewLine, LuaScript, Target Lua script function" "NewLine, String, Arguments"
 
 LevelFuncs.Engine.Node.RunConditionalLuaScript = function(operator, result, funcName, args)
-	if (funcName == nil) then
+	if (LevelFuncs.Engine.Node.StringIsEmpty(funcName)) then
 		print("There is no specified function in level script!")
 		return 0
 	end
@@ -216,7 +216,24 @@ end
 -- !Conditional "True"
 -- !Description "Check if the game is in specific status.\nNormal game state is controlled in the 'On Loop' event.\nOther states are controlled in the 'On Level End' event."
 -- !Section "Game flow"
--- !Arguments "NewLine, Enumeration, [ Normal | New game | Load game | Exit game | Exit to title | Player death | Level Complete ], Reason"
+-- !Arguments "NewLine, Enumeration, [ Normal | New game | Load game | Exit game | Exit to title | Player death | Level complete ], Reason"
 LevelFuncs.Engine.Node.GetEndLevelReason = function(reason)
 	return LevelFuncs.Engine.Node.GetGameStatus(reason) == Flow.GetGameStatus()
+end
+
+-- !Name "If freeze mode is..."
+-- !Conditional "True"
+-- !Description "Check if the game is in specific freeze mode."
+-- !Section "Game flow"
+-- !Arguments "Enumeration, 25, [ None | Full | Spectator | Player ], Freeze mode"
+LevelFuncs.Engine.Node.TestFreezeMode = function(mode)
+	return LevelFuncs.Engine.Node.GetFreezeMode(mode) == Flow.GetFreezeMode()
+end
+
+-- !Name "Set freeze mode"
+-- !Section "Game flow"
+-- !Description "Set current freeze mode. Any values except 'None' will freeze the game in different ways."
+-- !Arguments "Enumeration, 25, [ None | Full | Spectator | Player ], Freeze mode"
+LevelFuncs.Engine.Node.SetFreezeMode = function(mode)
+	TEN.Flow.SetFreezeMode(LevelFuncs.Engine.Node.GetFreezeMode(mode))
 end
