@@ -1,0 +1,3258 @@
+-- TEN 1.10.0.2 API
+-- This file is auto-generated and for IntelliSense purposes only!
+-- Any changes made here will not be reflected in the engine.
+
+---@meta
+
+---Objects module for Tomb Engine
+---@class Objects
+Objects = {}
+
+---Constants for player weapon ammo types.
+---To be used with Objects.LaraObject.GetAmmoType function.
+---@enum AmmoType
+AmmoType = {
+	---Pistol ammo.
+	PISTOLS = "PISTOLS",
+	---Revolver ammo.
+	REVOLVER = "REVOLVER",
+	---Uzi ammo.
+	UZI = "UZI",
+	---Normal shotgun shells.
+	SHOTGUN_NORMAL = "SHOTGUN_NORMAL",
+	---Wide spread shotgun shells.
+	SHOTGUN_WIDE = "SHOTGUN_WIDE",
+	---HK ammo.
+	HK = "HK",
+	---Normal crossbow bolts.
+	CROSSBOW_BOLT_NORMAL = "CROSSBOW_BOLT_NORMAL",
+	---Poison crossbow bolts.
+	CROSSBOW_BOLT_POISON = "CROSSBOW_BOLT_POISON",
+	---Explosive crossbow bolts.
+	CROSSBOW_BOLT_EXPLOSIVE = "CROSSBOW_BOLT_EXPLOSIVE",
+	---Normal grenades.
+	GRENADE_NORMAL = "GRENADE_NORMAL",
+	---Fragmentation grenades.
+	GRENADE_FRAG = "GRENADE_FRAG",
+	---Flash grenades.
+	GRENADE_FLASH = "GRENADE_FLASH",
+	---Harpoon ammunition.
+	HARPOON = "HARPOON",
+	---Rocket ammunition.
+	ROCKET = "ROCKET",
+}
+
+---Module-prefixed alias for AmmoType
+Objects.AmmoType = AmmoType
+
+---Constants for player hand statuses.
+---To be used with Objects.LaraObject.GetAmmoType function.
+---@enum HandStatus
+HandStatus = {
+	---Hand is free.
+	FREE = "FREE",
+	---Hand is busy.
+	BUSY = "BUSY",
+	---Hand is drawing weapon.
+	WEAPON_DRAW = "WEAPON_DRAW",
+	---Hand is undrawing weapon.
+	WEAPON_UNDRAW = "WEAPON_UNDRAW",
+	---Hand has weapon ready.
+	WEAPON_READY = "WEAPON_READY",
+	---Hand is in special state.
+	SPECIAL = "SPECIAL",
+}
+
+---Module-prefixed alias for HandStatus
+Objects.HandStatus = HandStatus
+
+---Constants for weapon types.
+---To be used with Objects.LaraObject.GetWeaponType and Objects.LaraObject.SetWeaponType functions.
+---<br> Note that this table also contains the flare and torch, as they are internally counted as "weapons" in the engine.
+---@enum WeaponType
+WeaponType = {
+	---No weapon.
+	NONE = "NONE",
+	---Pistols.
+	PISTOLS = "PISTOLS",
+	---Uzi submachine guns.
+	UZIS = "UZIS",
+	---Revolver.
+	REVOLVER = "REVOLVER",
+	---Shotgun.
+	SHOTGUN = "SHOTGUN",
+	---HK MP5.
+	HK = "HK",
+	---Crossbow.
+	CROSSBOW = "CROSSBOW",
+	---Flare.
+	FLARE = "FLARE",
+	---Torch.
+	TORCH = "TORCH",
+	---Grenade launcher.
+	GRENADE_LAUNCHER = "GRENADE_LAUNCHER",
+	---Harpoon gun.
+	HARPOON_GUN = "HARPOON_GUN",
+	---Rocket launcher.
+	ROCKET_LAUNCHER = "ROCKET_LAUNCHER",
+}
+
+---Module-prefixed alias for WeaponType
+Objects.WeaponType = WeaponType
+
+---Constants for moveable statuses.
+---To be used with Objects.Moveable.GetStatus and Objects.Moveable.SetStatus functions.
+---@enum MoveableStatus
+MoveableStatus = {
+	---Moveable is inactive (was never activated).
+	INACTIVE = "INACTIVE",
+	---Moveable is active.
+	ACTIVE = "ACTIVE",
+	---Moveable is deactivated (was previously active and later deactivated).
+	DEACTIVATED = "DEACTIVATED",
+	---Moveable is invisible.
+	INVISIBLE = "INVISIBLE",
+}
+
+---Module-prefixed alias for MoveableStatus
+Objects.MoveableStatus = MoveableStatus
+
+---Constants for object IDs.
+---@enum ObjID
+ObjID = {
+	---Object ID.
+	LARA = "LARA",
+	---Object ID.
+	LARA_EXTRA_ANIMS = "LARA_EXTRA_ANIMS",
+	---Object ID.
+	PISTOLS_ANIM = "PISTOLS_ANIM",
+	---Object ID.
+	UZI_ANIM = "UZI_ANIM",
+	---Object ID.
+	SHOTGUN_ANIM = "SHOTGUN_ANIM",
+	---Object ID.
+	REVOLVER_ANIM = "REVOLVER_ANIM",
+	---Object ID.
+	CROSSBOW_ANIM = "CROSSBOW_ANIM",
+	---Object ID.
+	HK_ANIM = "HK_ANIM",
+	---Object ID.
+	GRENADE_ANIM = "GRENADE_ANIM",
+	---Object ID.
+	ROCKET_ANIM = "ROCKET_ANIM",
+	---Object ID.
+	HARPOON_ANIM = "HARPOON_ANIM",
+	---Object ID.
+	FLARE_ANIM = "FLARE_ANIM",
+	---Object ID.
+	LARA_SKIN = "LARA_SKIN",
+	---Object ID.
+	LARA_SKIN_JOINTS = "LARA_SKIN_JOINTS",
+	---Object ID.
+	LARA_SCREAM = "LARA_SCREAM",
+	---Object ID.
+	LARA_CROSSBOW_LASER = "LARA_CROSSBOW_LASER",
+	---Object ID.
+	LARA_REVOLVER_LASER = "LARA_REVOLVER_LASER",
+	---Object ID.
+	LARA_HOLSTERS = "LARA_HOLSTERS",
+	---Object ID.
+	LARA_HOLSTERS_PISTOLS = "LARA_HOLSTERS_PISTOLS",
+	---Object ID.
+	LARA_HOLSTERS_UZIS = "LARA_HOLSTERS_UZIS",
+	---Object ID.
+	LARA_HOLSTERS_REVOLVER = "LARA_HOLSTERS_REVOLVER",
+	---Object ID.
+	LARA_SPEECH_HEAD1 = "LARA_SPEECH_HEAD1",
+	---Object ID.
+	LARA_SPEECH_HEAD2 = "LARA_SPEECH_HEAD2",
+	---Object ID.
+	LARA_SPEECH_HEAD3 = "LARA_SPEECH_HEAD3",
+	---Object ID.
+	LARA_SPEECH_HEAD4 = "LARA_SPEECH_HEAD4",
+	---Object ID.
+	ACTOR1_SPEECH_HEAD1 = "ACTOR1_SPEECH_HEAD1",
+	---Object ID.
+	ACTOR1_SPEECH_HEAD2 = "ACTOR1_SPEECH_HEAD2",
+	---Object ID.
+	ACTOR2_SPEECH_HEAD1 = "ACTOR2_SPEECH_HEAD1",
+	---Object ID.
+	ACTOR2_SPEECH_HEAD2 = "ACTOR2_SPEECH_HEAD2",
+	---Object ID.
+	LARA_BINOCULARS_MESH = "LARA_BINOCULARS_MESH",
+	---Object ID.
+	LARA_EXTRA_MESH1 = "LARA_EXTRA_MESH1",
+	---Object ID.
+	LARA_EXTRA_MESH2 = "LARA_EXTRA_MESH2",
+	---Object ID.
+	LARA_WATER_MESH = "LARA_WATER_MESH",
+	---Object ID.
+	LARA_PETROL_MESH = "LARA_PETROL_MESH",
+	---Object ID.
+	LARA_DIRT_MESH = "LARA_DIRT_MESH",
+	---Object ID.
+	LARA_CROWBAR_ANIM = "LARA_CROWBAR_ANIM",
+	---Object ID.
+	LARA_TORCH_ANIM = "LARA_TORCH_ANIM",
+	---Object ID.
+	HAIR_PRIMARY = "HAIR_PRIMARY",
+	---Object ID.
+	HAIR_SECONDARY = "HAIR_SECONDARY",
+	---Object ID.
+	SNOWMOBILE_TRACKS = "SNOWMOBILE_TRACKS",
+	---Object ID.
+	SNOWMOBILE_LARA_ANIMS = "SNOWMOBILE_LARA_ANIMS",
+	---Object ID.
+	SNOWMOBILE = "SNOWMOBILE",
+	---Object ID.
+	QUAD_LARA_ANIMS = "QUAD_LARA_ANIMS",
+	---Object ID.
+	QUAD = "QUAD",
+	---Object ID.
+	SPEEDBOAT_LARA_ANIMS = "SPEEDBOAT_LARA_ANIMS",
+	---Object ID.
+	SPEEDBOAT = "SPEEDBOAT",
+	---Object ID.
+	KAYAK_LARA_ANIMS = "KAYAK_LARA_ANIMS",
+	---Object ID.
+	KAYAK = "KAYAK",
+	---Object ID.
+	UPV_LARA_ANIMS = "UPV_LARA_ANIMS",
+	---Object ID.
+	UPV = "UPV",
+	---Object ID.
+	MINECART_LARA_ANIMS = "MINECART_LARA_ANIMS",
+	---Object ID.
+	MINECART = "MINECART",
+	---Object ID.
+	JEEP_LARA_ANIMS = "JEEP_LARA_ANIMS",
+	---Object ID.
+	JEEP = "JEEP",
+	---Object ID.
+	MOTORBIKE_LARA_ANIMS = "MOTORBIKE_LARA_ANIMS",
+	---Object ID.
+	MOTORBIKE = "MOTORBIKE",
+	---Object ID.
+	RUBBER_BOAT_LARA_ANIMS = "RUBBER_BOAT_LARA_ANIMS",
+	---Object ID.
+	RUBBER_BOAT = "RUBBER_BOAT",
+	---Object ID.
+	LARA_BIGGUN_ANIM = "LARA_BIGGUN_ANIM",
+	---Object ID.
+	BIGGUN = "BIGGUN",
+	---Object ID.
+	VEHICLE_SMASHABLE_FLOOR = "VEHICLE_SMASHABLE_FLOOR",
+	---Object ID.
+	VEHICLE_SMASHABLE_WALL = "VEHICLE_SMASHABLE_WALL",
+	---Object ID.
+	WOLF = "WOLF",
+	---Object ID.
+	BEAR = "BEAR",
+	---Object ID.
+	APE = "APE",
+	---Object ID.
+	SMALL_SPIDER = "SMALL_SPIDER",
+	---Object ID.
+	BIG_SPIDER = "BIG_SPIDER",
+	---Object ID.
+	CROW = "CROW",
+	---Object ID.
+	TIGER = "TIGER",
+	---Object ID.
+	EAGLE = "EAGLE",
+	---Object ID.
+	RAPTOR = "RAPTOR",
+	---Object ID.
+	TYRANNOSAUR = "TYRANNOSAUR",
+	---Object ID.
+	COBRA = "COBRA",
+	---Object ID.
+	MONKEY = "MONKEY",
+	---Object ID.
+	WHALE = "WHALE",
+	---Object ID.
+	COMPSOGNATHUS = "COMPSOGNATHUS",
+	---Object ID.
+	FISH_EMITTER = "FISH_EMITTER",
+	---Object ID.
+	RAT = "RAT",
+	---Object ID.
+	BIG_RAT = "BIG_RAT",
+	---Object ID.
+	CROCODILE = "CROCODILE",
+	---Object ID.
+	BAT = "BAT",
+	---Object ID.
+	SPHINX = "SPHINX",
+	---Object ID.
+	WILD_BOAR = "WILD_BOAR",
+	---Object ID.
+	HARPY = "HARPY",
+	---Object ID.
+	BIG_SCORPION = "BIG_SCORPION",
+	---Object ID.
+	SMALL_SCORPION = "SMALL_SCORPION",
+	---Object ID.
+	BABOON_NORMAL = "BABOON_NORMAL",
+	---Object ID.
+	BABOON_INV = "BABOON_INV",
+	---Object ID.
+	BABOON_SILENT = "BABOON_SILENT",
+	---Object ID.
+	LITTLE_BEETLE = "LITTLE_BEETLE",
+	---Object ID.
+	LOCUSTS = "LOCUSTS",
+	---Object ID.
+	SHARK = "SHARK",
+	---Object ID.
+	HUSKIE = "HUSKIE",
+	---Object ID.
+	DOG = "DOG",
+	---Object ID.
+	BATS_EMITTER = "BATS_EMITTER",
+	---Object ID.
+	RATS_EMITTER = "RATS_EMITTER",
+	---Object ID.
+	SPIDERS_EMITTER = "SPIDERS_EMITTER",
+	---Object ID.
+	LION = "LION",
+	---Object ID.
+	DOBERMAN = "DOBERMAN",
+	---Object ID.
+	HAMMERHEAD = "HAMMERHEAD",
+	---Object ID.
+	CROCODILE_GOD = "CROCODILE_GOD",
+	---Object ID.
+	LOCUSTS_EMITTER = "LOCUSTS_EMITTER",
+	---Object ID.
+	SCUBA_HARPOON = "SCUBA_HARPOON",
+	---Object ID.
+	SCUBA_DIVER = "SCUBA_DIVER",
+	---Object ID.
+	GOON_SILENCER1 = "GOON_SILENCER1",
+	---Object ID.
+	GOON_SILENCER2 = "GOON_SILENCER2",
+	---Object ID.
+	GOON_SILENCER3 = "GOON_SILENCER3",
+	---Object ID.
+	BARRACUDA = "BARRACUDA",
+	---Object ID.
+	WORKER_SHOTGUN = "WORKER_SHOTGUN",
+	---Object ID.
+	WORKER_MACHINEGUN = "WORKER_MACHINEGUN",
+	---Object ID.
+	WORKER_DUAL_REVOLVER = "WORKER_DUAL_REVOLVER",
+	---Object ID.
+	WORKER_FLAMETHROWER = "WORKER_FLAMETHROWER",
+	---Object ID.
+	MONK1 = "MONK1",
+	---Object ID.
+	MONK2 = "MONK2",
+	---Object ID.
+	KNIFETHROWER = "KNIFETHROWER",
+	---Object ID.
+	KNIFETHROWER_KNIFE = "KNIFETHROWER_KNIFE",
+	---Object ID.
+	MERCENARY_UZI = "MERCENARY_UZI",
+	---Object ID.
+	MERCENARY_AUTOPISTOLS1 = "MERCENARY_AUTOPISTOLS1",
+	---Object ID.
+	MERCENARY_AUTOPISTOLS2 = "MERCENARY_AUTOPISTOLS2",
+	---Object ID.
+	SNOWMOBILE_GUN = "SNOWMOBILE_GUN",
+	---Object ID.
+	SNOWMOBILE_DRIVER = "SNOWMOBILE_DRIVER",
+	---Object ID.
+	FLAMETHROWER_BADDY = "FLAMETHROWER_BADDY",
+	---Object ID.
+	TRIBESMAN_WITH_AX = "TRIBESMAN_WITH_AX",
+	---Object ID.
+	TRIBESMAN_WITH_DARTS = "TRIBESMAN_WITH_DARTS",
+	---Object ID.
+	MP_WITH_STICK = "MP_WITH_STICK",
+	---Object ID.
+	MP_WITH_GUN = "MP_WITH_GUN",
+	---Object ID.
+	BADDY1 = "BADDY1",
+	---Object ID.
+	BADDY2 = "BADDY2",
+	---Object ID.
+	SAS_CAIRO = "SAS_CAIRO",
+	---Object ID.
+	SAS_DYING = "SAS_DYING",
+	---Object ID.
+	SAS_CAPTAIN = "SAS_CAPTAIN",
+	---Object ID.
+	SAS_DRAG_BLOKE = "SAS_DRAG_BLOKE",
+	---Object ID.
+	GUIDE = "GUIDE",
+	---Object ID.
+	VON_CROY = "VON_CROY",
+	---Object ID.
+	TROOPS = "TROOPS",
+	---Object ID.
+	SAS = "SAS",
+	---Object ID.
+	SWAT = "SWAT",
+	---Object ID.
+	SWAT_PLUS = "SWAT_PLUS",
+	---Object ID.
+	GUARD1 = "GUARD1",
+	---Object ID.
+	GUARD_LASER = "GUARD_LASER",
+	---Object ID.
+	LARSON = "LARSON",
+	---Object ID.
+	PIERRE = "PIERRE",
+	---Object ID.
+	MAFIA = "MAFIA",
+	---Object ID.
+	MAFIA2 = "MAFIA2",
+	---Object ID.
+	GUARD2 = "GUARD2",
+	---Object ID.
+	GUARD3 = "GUARD3",
+	---Object ID.
+	GLADIATOR = "GLADIATOR",
+	---Object ID.
+	CYBORG = "CYBORG",
+	---Object ID.
+	SNIPER = "SNIPER",
+	---Object ID.
+	CHEF = "CHEF",
+	---Object ID.
+	KOLD = "KOLD",
+	---Object ID.
+	WINGED_MUMMY = "WINGED_MUMMY",
+	---Object ID.
+	CENTAUR_MUTANT = "CENTAUR_MUTANT",
+	---Object ID.
+	DOPPELGANGER = "DOPPELGANGER",
+	---Object ID.
+	NATLA = "NATLA",
+	---Object ID.
+	GIANT_MUTANT = "GIANT_MUTANT",
+	---Object ID.
+	PROJ_SHARD = "PROJ_SHARD",
+	---Object ID.
+	PROJ_BOMB = "PROJ_BOMB",
+	---Object ID.
+	YETI = "YETI",
+	---Object ID.
+	BIRDMONSTER = "BIRDMONSTER",
+	---Object ID.
+	MARCO_BARTOLI = "MARCO_BARTOLI",
+	---Object ID.
+	DRAGON_FRONT = "DRAGON_FRONT",
+	---Object ID.
+	DRAGON_BACK = "DRAGON_BACK",
+	---Object ID.
+	DRAGON_BONE_FRONT = "DRAGON_BONE_FRONT",
+	---Object ID.
+	DRAGON_BONE_BACK = "DRAGON_BONE_BACK",
+	---Object ID.
+	SPHERE_OF_DOOM = "SPHERE_OF_DOOM",
+	---Object ID.
+	SPHERE_OF_DOOM2 = "SPHERE_OF_DOOM2",
+	---Object ID.
+	SPHERE_OF_DOOM3 = "SPHERE_OF_DOOM3",
+	---Object ID.
+	COWBOY = "COWBOY",
+	---Object ID.
+	SPEAR_GUARDIAN = "SPEAR_GUARDIAN",
+	---Object ID.
+	SPEAR_GUARDIAN_STATUE = "SPEAR_GUARDIAN_STATUE",
+	---Object ID.
+	SWORD_GUARDIAN = "SWORD_GUARDIAN",
+	---Object ID.
+	SWORD_GUARDIAN_STATUE = "SWORD_GUARDIAN_STATUE",
+	---Object ID.
+	SHIVA = "SHIVA",
+	---Object ID.
+	SHIVA_STATUE = "SHIVA_STATUE",
+	---Object ID.
+	WILLARD = "WILLARD",
+	---Object ID.
+	CIVVY = "CIVVY",
+	---Object ID.
+	MUTANT2 = "MUTANT2",
+	---Object ID.
+	LIZARD = "LIZARD",
+	---Object ID.
+	TONY_BOSS = "TONY_BOSS",
+	---Object ID.
+	TONY_BOSS_FLAME = "TONY_BOSS_FLAME",
+	---Object ID.
+	PUNA_BOSS = "PUNA_BOSS",
+	---Object ID.
+	SOPHIA_LEIGH_BOSS = "SOPHIA_LEIGH_BOSS",
+	---Object ID.
+	LASER_BOLT = "LASER_BOLT",
+	---Object ID.
+	SKELETON = "SKELETON",
+	---Object ID.
+	MUMMY = "MUMMY",
+	---Object ID.
+	ENEMY_JEEP = "ENEMY_JEEP",
+	---Object ID.
+	HORSE = "HORSE",
+	---Object ID.
+	HORSEMAN = "HORSEMAN",
+	---Object ID.
+	DEMIGOD1 = "DEMIGOD1",
+	---Object ID.
+	DEMIGOD2 = "DEMIGOD2",
+	---Object ID.
+	DEMIGOD3 = "DEMIGOD3",
+	---Object ID.
+	SETHA = "SETHA",
+	---Object ID.
+	KNIGHT_TEMPLAR = "KNIGHT_TEMPLAR",
+	---Object ID.
+	AHMET = "AHMET",
+	---Object ID.
+	BIG_BEETLE = "BIG_BEETLE",
+	---Object ID.
+	JEAN_YVES = "JEAN_YVES",
+	---Object ID.
+	WRAITH1 = "WRAITH1",
+	---Object ID.
+	WRAITH2 = "WRAITH2",
+	---Object ID.
+	WRAITH3 = "WRAITH3",
+	---Object ID.
+	WRAITH4 = "WRAITH4",
+	---Object ID.
+	LARA_DOUBLE = "LARA_DOUBLE",
+	---Object ID.
+	HYDRA = "HYDRA",
+	---Object ID.
+	LASERHEAD = "LASERHEAD",
+	---Object ID.
+	SCIENTIST = "SCIENTIST",
+	---Object ID.
+	MERCENARY = "MERCENARY",
+	---Object ID.
+	WILLOWISP = "WILLOWISP",
+	---Object ID.
+	INVISIBLE_GHOST = "INVISIBLE_GHOST",
+	---Object ID.
+	REAPER = "REAPER",
+	---Object ID.
+	BROWN_BEAST = "BROWN_BEAST",
+	---Object ID.
+	ATTACK_SUB = "ATTACK_SUB",
+	---Object ID.
+	IMP = "IMP",
+	---Object ID.
+	IMP_ROCK = "IMP_ROCK",
+	---Object ID.
+	GUNSHIP = "GUNSHIP",
+	---Object ID.
+	AUTO_GUN_VCI = "AUTO_GUN_VCI",
+	---Object ID.
+	ROMAN_GOD1 = "ROMAN_GOD1",
+	---Object ID.
+	ROMAN_GOD2 = "ROMAN_GOD2",
+	---Object ID.
+	LAGOON_WITCH = "LAGOON_WITCH",
+	---Object ID.
+	BOSS_SHIELD = "BOSS_SHIELD",
+	---Object ID.
+	BOSS_EXPLOSION_SHOCKWAVE = "BOSS_EXPLOSION_SHOCKWAVE",
+	---Object ID.
+	BOSS_EXPLOSION_RING = "BOSS_EXPLOSION_RING",
+	---Object ID.
+	CLAW_MUTANT = "CLAW_MUTANT",
+	---Object ID.
+	WASP_MUTANT = "WASP_MUTANT",
+	---Object ID.
+	TWIN_AUTO_GUN = "TWIN_AUTO_GUN",
+	---Object ID.
+	SKATEBOARD = "SKATEBOARD",
+	---Object ID.
+	SKATEBOARD_KID = "SKATEBOARD_KID",
+	---Object ID.
+	WINSTON = "WINSTON",
+	---Object ID.
+	SEAL_MUTANT = "SEAL_MUTANT",
+	---Object ID.
+	SPRINGBOARD = "SPRINGBOARD",
+	---Object ID.
+	ROLLING_SPINDLE = "ROLLING_SPINDLE",
+	---Object ID.
+	DISK_SHOOTER = "DISK_SHOOTER",
+	---Object ID.
+	DISK = "DISK",
+	---Object ID.
+	WALL_MOUNTED_BLADE = "WALL_MOUNTED_BLADE",
+	---Object ID.
+	STATUE_WITH_BLADE = "STATUE_WITH_BLADE",
+	---Object ID.
+	COG = "COG",
+	---Object ID.
+	SPIKEBALL = "SPIKEBALL",
+	---Object ID.
+	FLOOR_4BLADES = "FLOOR_4BLADES",
+	---Object ID.
+	CEILING_4BLADES = "CEILING_4BLADES",
+	---Object ID.
+	CATWALK_BLADE = "CATWALK_BLADE",
+	---Object ID.
+	SETH_BLADE = "SETH_BLADE",
+	---Object ID.
+	PLINTH_BLADE = "PLINTH_BLADE",
+	---Object ID.
+	SLICER_DICER = "SLICER_DICER",
+	---Object ID.
+	BIRD_BLADE = "BIRD_BLADE",
+	---Object ID.
+	CHAIN = "CHAIN",
+	---Object ID.
+	PLOUGH = "PLOUGH",
+	---Object ID.
+	STARGATE = "STARGATE",
+	---Object ID.
+	SPIKY_FLOOR = "SPIKY_FLOOR",
+	---Object ID.
+	SPIKY_WALL = "SPIKY_WALL",
+	---Object ID.
+	SPIKY_CEILING = "SPIKY_CEILING",
+	---Object ID.
+	TEETH_SPIKES = "TEETH_SPIKES",
+	---Object ID.
+	JOBY_SPIKES = "JOBY_SPIKES",
+	---Object ID.
+	SENTRY_GUN = "SENTRY_GUN",
+	---Object ID.
+	MAPPER = "MAPPER",
+	---Object ID.
+	MOVING_BLADE = "MOVING_BLADE",
+	---Object ID.
+	ELEMENT_PUZZLE = "ELEMENT_PUZZLE",
+	---Object ID.
+	LIGHTING_CONDUCTOR = "LIGHTING_CONDUCTOR",
+	---Object ID.
+	HAMMER = "HAMMER",
+	---Object ID.
+	OBELISK = "OBELISK",
+	---Object ID.
+	WHEEL_OF_FORTUNE = "WHEEL_OF_FORTUNE",
+	---Object ID.
+	GAME_PIECE1 = "GAME_PIECE1",
+	---Object ID.
+	GAME_PIECE2 = "GAME_PIECE2",
+	---Object ID.
+	GAME_PIECE3 = "GAME_PIECE3",
+	---Object ID.
+	RAISING_COG = "RAISING_COG",
+	---Object ID.
+	MINE = "MINE",
+	---Object ID.
+	SCALES = "SCALES",
+	---Object ID.
+	ROME_HAMMER = "ROME_HAMMER",
+	---Object ID.
+	FLAME = "FLAME",
+	---Object ID.
+	FLAME_EMITTER = "FLAME_EMITTER",
+	---Object ID.
+	FLAME_EMITTER2 = "FLAME_EMITTER2",
+	---Object ID.
+	FLAME_EMITTER3 = "FLAME_EMITTER3",
+	---Object ID.
+	BURNING_ROOTS = "BURNING_ROOTS",
+	---Object ID.
+	ROPE = "ROPE",
+	---Object ID.
+	FIREROPE = "FIREROPE",
+	---Object ID.
+	POLEROPE = "POLEROPE",
+	---Object ID.
+	ELECTRICAL_CABLES = "ELECTRICAL_CABLES",
+	---Object ID.
+	BURNING_FLOOR = "BURNING_FLOOR",
+	---Object ID.
+	DARTS = "DARTS",
+	---Object ID.
+	DART_EMITTER = "DART_EMITTER",
+	---Object ID.
+	HOMING_DART_EMITTER = "HOMING_DART_EMITTER",
+	---Object ID.
+	FALLING_CEILING = "FALLING_CEILING",
+	---Object ID.
+	FALLING_BLOCK = "FALLING_BLOCK",
+	---Object ID.
+	FALLING_BLOCK2 = "FALLING_BLOCK2",
+	---Object ID.
+	CRUMBLING_FLOOR = "CRUMBLING_FLOOR",
+	---Object ID.
+	TRAPDOOR1 = "TRAPDOOR1",
+	---Object ID.
+	TRAPDOOR2 = "TRAPDOOR2",
+	---Object ID.
+	TRAPDOOR3 = "TRAPDOOR3",
+	---Object ID.
+	FLOOR_TRAPDOOR1 = "FLOOR_TRAPDOOR1",
+	---Object ID.
+	FLOOR_TRAPDOOR2 = "FLOOR_TRAPDOOR2",
+	---Object ID.
+	CEILING_TRAPDOOR1 = "CEILING_TRAPDOOR1",
+	---Object ID.
+	CEILING_TRAPDOOR2 = "CEILING_TRAPDOOR2",
+	---Object ID.
+	SCALING_TRAPDOOR = "SCALING_TRAPDOOR",
+	---Object ID.
+	ROLLINGBALL = "ROLLINGBALL",
+	---Object ID.
+	ROLLINGBARREL = "ROLLINGBARREL",
+	---Object ID.
+	PROPELLER_H = "PROPELLER_H",
+	---Object ID.
+	PROPELLER_V = "PROPELLER_V",
+	---Object ID.
+	ONEBLOCK_PLATFORM = "ONEBLOCK_PLATFORM",
+	---Object ID.
+	TWOBLOCK_PLATFORM = "TWOBLOCK_PLATFORM",
+	---Object ID.
+	RAISING_BLOCK1 = "RAISING_BLOCK1",
+	---Object ID.
+	RAISING_BLOCK2 = "RAISING_BLOCK2",
+	---Object ID.
+	RAISING_BLOCK3 = "RAISING_BLOCK3",
+	---Object ID.
+	RAISING_BLOCK4 = "RAISING_BLOCK4",
+	---Object ID.
+	PUSHABLE_OBJECT1 = "PUSHABLE_OBJECT1",
+	---Object ID.
+	PUSHABLE_OBJECT2 = "PUSHABLE_OBJECT2",
+	---Object ID.
+	PUSHABLE_OBJECT3 = "PUSHABLE_OBJECT3",
+	---Object ID.
+	PUSHABLE_OBJECT4 = "PUSHABLE_OBJECT4",
+	---Object ID.
+	PUSHABLE_OBJECT5 = "PUSHABLE_OBJECT5",
+	---Object ID.
+	PUSHABLE_OBJECT6 = "PUSHABLE_OBJECT6",
+	---Object ID.
+	PUSHABLE_OBJECT7 = "PUSHABLE_OBJECT7",
+	---Object ID.
+	PUSHABLE_OBJECT8 = "PUSHABLE_OBJECT8",
+	---Object ID.
+	PUSHABLE_OBJECT9 = "PUSHABLE_OBJECT9",
+	---Object ID.
+	PUSHABLE_OBJECT10 = "PUSHABLE_OBJECT10",
+	---Object ID.
+	WRECKING_BALL = "WRECKING_BALL",
+	---Object ID.
+	ZIPLINE_HANDLE = "ZIPLINE_HANDLE",
+	---Object ID.
+	TORPEDO = "TORPEDO",
+	---Object ID.
+	CHAFF = "CHAFF",
+	---Object ID.
+	ELECTRIC_FENCE = "ELECTRIC_FENCE",
+	---Object ID.
+	LIFT = "LIFT",
+	---Object ID.
+	TIGHT_ROPE = "TIGHT_ROPE",
+	---Object ID.
+	PARALLEL_BARS = "PARALLEL_BARS",
+	---Object ID.
+	XRAY_CONTROLLER = "XRAY_CONTROLLER",
+	---Object ID.
+	PORTAL = "PORTAL",
+	---Object ID.
+	GEN_SLOT1 = "GEN_SLOT1",
+	---Object ID.
+	GEN_SLOT2 = "GEN_SLOT2",
+	---Object ID.
+	GEN_SLOT3 = "GEN_SLOT3",
+	---Object ID.
+	GEN_SLOT4 = "GEN_SLOT4",
+	---Object ID.
+	SEARCH_OBJECT1 = "SEARCH_OBJECT1",
+	---Object ID.
+	SEARCH_OBJECT2 = "SEARCH_OBJECT2",
+	---Object ID.
+	SEARCH_OBJECT3 = "SEARCH_OBJECT3",
+	---Object ID.
+	SEARCH_OBJECT4 = "SEARCH_OBJECT4",
+	---Object ID.
+	SARCOPHAGUS = "SARCOPHAGUS",
+	---Object ID.
+	ENEMY_PIECE = "ENEMY_PIECE",
+	---Object ID.
+	EXPANDING_PLATFORM = "EXPANDING_PLATFORM",
+	---Object ID.
+	SQUISHY_BLOCK_HORIZONTAL = "SQUISHY_BLOCK_HORIZONTAL",
+	---Object ID.
+	SQUISHY_BLOCK_VERTICAL = "SQUISHY_BLOCK_VERTICAL",
+	---Object ID.
+	LASER_BEAM = "LASER_BEAM",
+	---Object ID.
+	MINE_DETECTOR = "MINE_DETECTOR",
+	---Object ID.
+	MAP = "MAP",
+	---Object ID.
+	SECRET_MAP = "SECRET_MAP",
+	---Object ID.
+	SETH_DOOR = "SETH_DOOR",
+	---Object ID.
+	HORUS_STATUE = "HORUS_STATUE",
+	---Object ID.
+	STATUE_PLINTH = "STATUE_PLINTH",
+	---Object ID.
+	CLASSIC_ROLLING_BALL = "CLASSIC_ROLLING_BALL",
+	---Object ID.
+	BIG_ROLLING_BALL = "BIG_ROLLING_BALL",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE1 = "PUSHABLE_OBJECT_CLIMBABLE1",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE2 = "PUSHABLE_OBJECT_CLIMBABLE2",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE3 = "PUSHABLE_OBJECT_CLIMBABLE3",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE4 = "PUSHABLE_OBJECT_CLIMBABLE4",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE5 = "PUSHABLE_OBJECT_CLIMBABLE5",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE6 = "PUSHABLE_OBJECT_CLIMBABLE6",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE7 = "PUSHABLE_OBJECT_CLIMBABLE7",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE8 = "PUSHABLE_OBJECT_CLIMBABLE8",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE9 = "PUSHABLE_OBJECT_CLIMBABLE9",
+	---Object ID.
+	PUSHABLE_OBJECT_CLIMBABLE10 = "PUSHABLE_OBJECT_CLIMBABLE10",
+	---Object ID.
+	TRAIN = "TRAIN",
+	---Object ID.
+	EXPLOSION = "EXPLOSION",
+	---Object ID.
+	DAMOCLES_SWORD = "DAMOCLES_SWORD",
+	---Object ID.
+	ELECTRIC_CLEANER = "ELECTRIC_CLEANER",
+	---Object ID.
+	SLAMMING_DOORS = "SLAMMING_DOORS",
+	---Object ID.
+	SWINGING_BLADE = "SWINGING_BLADE",
+	---Object ID.
+	ELECTRIC_BALL = "ELECTRIC_BALL",
+	---Object ID.
+	ELECTRIC_BALL_IMPACT_POINT = "ELECTRIC_BALL_IMPACT_POINT",
+	---Object ID.
+	THOR_HAMMER_HANDLE = "THOR_HAMMER_HANDLE",
+	---Object ID.
+	THOR_HAMMER_HEAD = "THOR_HAMMER_HEAD",
+	---Object ID.
+	MOVING_LASER = "MOVING_LASER",
+	---Object ID.
+	TURNING_WALL_BLADE = "TURNING_WALL_BLADE",
+	---Object ID.
+	TURNING_CEILING_BLADE = "TURNING_CEILING_BLADE",
+	---Object ID.
+	FIRE_PENDULUM = "FIRE_PENDULUM",
+	---Pickup Object ID.
+	PUZZLE_ITEM1 = "PUZZLE_ITEM1",
+	---Pickup Object ID.
+	PUZZLE_ITEM2 = "PUZZLE_ITEM2",
+	---Pickup Object ID.
+	PUZZLE_ITEM3 = "PUZZLE_ITEM3",
+	---Pickup Object ID.
+	PUZZLE_ITEM4 = "PUZZLE_ITEM4",
+	---Pickup Object ID.
+	PUZZLE_ITEM5 = "PUZZLE_ITEM5",
+	---Pickup Object ID.
+	PUZZLE_ITEM6 = "PUZZLE_ITEM6",
+	---Pickup Object ID.
+	PUZZLE_ITEM7 = "PUZZLE_ITEM7",
+	---Pickup Object ID.
+	PUZZLE_ITEM8 = "PUZZLE_ITEM8",
+	---Pickup Object ID.
+	PUZZLE_ITEM9 = "PUZZLE_ITEM9",
+	---Pickup Object ID.
+	PUZZLE_ITEM10 = "PUZZLE_ITEM10",
+	---Pickup Object ID.
+	PUZZLE_ITEM11 = "PUZZLE_ITEM11",
+	---Pickup Object ID.
+	PUZZLE_ITEM12 = "PUZZLE_ITEM12",
+	---Pickup Object ID.
+	PUZZLE_ITEM13 = "PUZZLE_ITEM13",
+	---Pickup Object ID.
+	PUZZLE_ITEM14 = "PUZZLE_ITEM14",
+	---Pickup Object ID.
+	PUZZLE_ITEM15 = "PUZZLE_ITEM15",
+	---Pickup Object ID.
+	PUZZLE_ITEM16 = "PUZZLE_ITEM16",
+	---Pickup Object ID.
+	PUZZLE_ITEM1_COMBO1 = "PUZZLE_ITEM1_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM1_COMBO2 = "PUZZLE_ITEM1_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM2_COMBO1 = "PUZZLE_ITEM2_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM2_COMBO2 = "PUZZLE_ITEM2_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM3_COMBO1 = "PUZZLE_ITEM3_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM3_COMBO2 = "PUZZLE_ITEM3_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM4_COMBO1 = "PUZZLE_ITEM4_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM4_COMBO2 = "PUZZLE_ITEM4_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM5_COMBO1 = "PUZZLE_ITEM5_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM5_COMBO2 = "PUZZLE_ITEM5_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM6_COMBO1 = "PUZZLE_ITEM6_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM6_COMBO2 = "PUZZLE_ITEM6_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM7_COMBO1 = "PUZZLE_ITEM7_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM7_COMBO2 = "PUZZLE_ITEM7_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM8_COMBO1 = "PUZZLE_ITEM8_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM8_COMBO2 = "PUZZLE_ITEM8_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM9_COMBO1 = "PUZZLE_ITEM9_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM9_COMBO2 = "PUZZLE_ITEM9_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM10_COMBO1 = "PUZZLE_ITEM10_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM10_COMBO2 = "PUZZLE_ITEM10_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM11_COMBO1 = "PUZZLE_ITEM11_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM11_COMBO2 = "PUZZLE_ITEM11_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM12_COMBO1 = "PUZZLE_ITEM12_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM12_COMBO2 = "PUZZLE_ITEM12_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM13_COMBO1 = "PUZZLE_ITEM13_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM13_COMBO2 = "PUZZLE_ITEM13_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM14_COMBO1 = "PUZZLE_ITEM14_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM14_COMBO2 = "PUZZLE_ITEM14_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM15_COMBO1 = "PUZZLE_ITEM15_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM15_COMBO2 = "PUZZLE_ITEM15_COMBO2",
+	---Pickup Object ID.
+	PUZZLE_ITEM16_COMBO1 = "PUZZLE_ITEM16_COMBO1",
+	---Pickup Object ID.
+	PUZZLE_ITEM16_COMBO2 = "PUZZLE_ITEM16_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM1 = "KEY_ITEM1",
+	---Pickup Object ID.
+	KEY_ITEM2 = "KEY_ITEM2",
+	---Pickup Object ID.
+	KEY_ITEM3 = "KEY_ITEM3",
+	---Pickup Object ID.
+	KEY_ITEM4 = "KEY_ITEM4",
+	---Pickup Object ID.
+	KEY_ITEM5 = "KEY_ITEM5",
+	---Pickup Object ID.
+	KEY_ITEM6 = "KEY_ITEM6",
+	---Pickup Object ID.
+	KEY_ITEM7 = "KEY_ITEM7",
+	---Pickup Object ID.
+	KEY_ITEM8 = "KEY_ITEM8",
+	---Pickup Object ID.
+	KEY_ITEM9 = "KEY_ITEM9",
+	---Pickup Object ID.
+	KEY_ITEM10 = "KEY_ITEM10",
+	---Pickup Object ID.
+	KEY_ITEM11 = "KEY_ITEM11",
+	---Pickup Object ID.
+	KEY_ITEM12 = "KEY_ITEM12",
+	---Pickup Object ID.
+	KEY_ITEM13 = "KEY_ITEM13",
+	---Pickup Object ID.
+	KEY_ITEM14 = "KEY_ITEM14",
+	---Pickup Object ID.
+	KEY_ITEM15 = "KEY_ITEM15",
+	---Pickup Object ID.
+	KEY_ITEM16 = "KEY_ITEM16",
+	---Pickup Object ID.
+	KEY_ITEM1_COMBO1 = "KEY_ITEM1_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM1_COMBO2 = "KEY_ITEM1_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM2_COMBO1 = "KEY_ITEM2_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM2_COMBO2 = "KEY_ITEM2_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM3_COMBO1 = "KEY_ITEM3_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM3_COMBO2 = "KEY_ITEM3_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM4_COMBO1 = "KEY_ITEM4_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM4_COMBO2 = "KEY_ITEM4_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM5_COMBO1 = "KEY_ITEM5_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM5_COMBO2 = "KEY_ITEM5_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM6_COMBO1 = "KEY_ITEM6_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM6_COMBO2 = "KEY_ITEM6_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM7_COMBO1 = "KEY_ITEM7_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM7_COMBO2 = "KEY_ITEM7_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM8_COMBO1 = "KEY_ITEM8_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM8_COMBO2 = "KEY_ITEM8_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM9_COMBO1 = "KEY_ITEM9_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM9_COMBO2 = "KEY_ITEM9_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM10_COMBO1 = "KEY_ITEM10_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM10_COMBO2 = "KEY_ITEM10_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM11_COMBO1 = "KEY_ITEM11_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM11_COMBO2 = "KEY_ITEM11_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM12_COMBO1 = "KEY_ITEM12_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM12_COMBO2 = "KEY_ITEM12_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM13_COMBO1 = "KEY_ITEM13_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM13_COMBO2 = "KEY_ITEM13_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM14_COMBO1 = "KEY_ITEM14_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM14_COMBO2 = "KEY_ITEM14_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM15_COMBO1 = "KEY_ITEM15_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM15_COMBO2 = "KEY_ITEM15_COMBO2",
+	---Pickup Object ID.
+	KEY_ITEM16_COMBO1 = "KEY_ITEM16_COMBO1",
+	---Pickup Object ID.
+	KEY_ITEM16_COMBO2 = "KEY_ITEM16_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM1 = "PICKUP_ITEM1",
+	---Pickup Object ID.
+	PICKUP_ITEM2 = "PICKUP_ITEM2",
+	---Pickup Object ID.
+	PICKUP_ITEM3 = "PICKUP_ITEM3",
+	---Pickup Object ID.
+	PICKUP_ITEM4 = "PICKUP_ITEM4",
+	---Pickup Object ID.
+	PICKUP_ITEM5 = "PICKUP_ITEM5",
+	---Pickup Object ID.
+	PICKUP_ITEM6 = "PICKUP_ITEM6",
+	---Pickup Object ID.
+	PICKUP_ITEM7 = "PICKUP_ITEM7",
+	---Pickup Object ID.
+	PICKUP_ITEM8 = "PICKUP_ITEM8",
+	---Pickup Object ID.
+	PICKUP_ITEM9 = "PICKUP_ITEM9",
+	---Pickup Object ID.
+	PICKUP_ITEM10 = "PICKUP_ITEM10",
+	---Pickup Object ID.
+	PICKUP_ITEM11 = "PICKUP_ITEM11",
+	---Pickup Object ID.
+	PICKUP_ITEM12 = "PICKUP_ITEM12",
+	---Pickup Object ID.
+	PICKUP_ITEM13 = "PICKUP_ITEM13",
+	---Pickup Object ID.
+	PICKUP_ITEM14 = "PICKUP_ITEM14",
+	---Pickup Object ID.
+	PICKUP_ITEM15 = "PICKUP_ITEM15",
+	---Pickup Object ID.
+	PICKUP_ITEM16 = "PICKUP_ITEM16",
+	---Pickup Object ID.
+	PICKUP_ITEM1_COMBO1 = "PICKUP_ITEM1_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM1_COMBO2 = "PICKUP_ITEM1_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM2_COMBO1 = "PICKUP_ITEM2_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM2_COMBO2 = "PICKUP_ITEM2_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM3_COMBO1 = "PICKUP_ITEM3_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM3_COMBO2 = "PICKUP_ITEM3_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM4_COMBO1 = "PICKUP_ITEM4_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM4_COMBO2 = "PICKUP_ITEM4_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM5_COMBO1 = "PICKUP_ITEM5_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM5_COMBO2 = "PICKUP_ITEM5_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM6_COMBO1 = "PICKUP_ITEM6_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM6_COMBO2 = "PICKUP_ITEM6_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM7_COMBO1 = "PICKUP_ITEM7_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM7_COMBO2 = "PICKUP_ITEM7_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM8_COMBO1 = "PICKUP_ITEM8_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM8_COMBO2 = "PICKUP_ITEM8_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM9_COMBO1 = "PICKUP_ITEM9_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM9_COMBO2 = "PICKUP_ITEM9_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM10_COMBO1 = "PICKUP_ITEM10_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM10_COMBO2 = "PICKUP_ITEM10_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM11_COMBO1 = "PICKUP_ITEM11_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM11_COMBO2 = "PICKUP_ITEM11_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM12_COMBO1 = "PICKUP_ITEM12_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM12_COMBO2 = "PICKUP_ITEM12_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM13_COMBO1 = "PICKUP_ITEM13_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM13_COMBO2 = "PICKUP_ITEM13_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM14_COMBO1 = "PICKUP_ITEM14_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM14_COMBO2 = "PICKUP_ITEM14_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM15_COMBO1 = "PICKUP_ITEM15_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM15_COMBO2 = "PICKUP_ITEM15_COMBO2",
+	---Pickup Object ID.
+	PICKUP_ITEM16_COMBO1 = "PICKUP_ITEM16_COMBO1",
+	---Pickup Object ID.
+	PICKUP_ITEM16_COMBO2 = "PICKUP_ITEM16_COMBO2",
+	---Pickup Object ID.
+	EXAMINE1 = "EXAMINE1",
+	---Pickup Object ID.
+	EXAMINE2 = "EXAMINE2",
+	---Pickup Object ID.
+	EXAMINE3 = "EXAMINE3",
+	---Pickup Object ID.
+	EXAMINE4 = "EXAMINE4",
+	---Pickup Object ID.
+	EXAMINE5 = "EXAMINE5",
+	---Pickup Object ID.
+	EXAMINE6 = "EXAMINE6",
+	---Pickup Object ID.
+	EXAMINE7 = "EXAMINE7",
+	---Pickup Object ID.
+	EXAMINE8 = "EXAMINE8",
+	---Pickup Object ID.
+	EXAMINE1_COMBO1 = "EXAMINE1_COMBO1",
+	---Pickup Object ID.
+	EXAMINE1_COMBO2 = "EXAMINE1_COMBO2",
+	---Pickup Object ID.
+	EXAMINE2_COMBO1 = "EXAMINE2_COMBO1",
+	---Pickup Object ID.
+	EXAMINE2_COMBO2 = "EXAMINE2_COMBO2",
+	---Pickup Object ID.
+	EXAMINE3_COMBO1 = "EXAMINE3_COMBO1",
+	---Pickup Object ID.
+	EXAMINE3_COMBO2 = "EXAMINE3_COMBO2",
+	---Pickup Object ID.
+	EXAMINE4_COMBO1 = "EXAMINE4_COMBO1",
+	---Pickup Object ID.
+	EXAMINE4_COMBO2 = "EXAMINE4_COMBO2",
+	---Pickup Object ID.
+	EXAMINE5_COMBO1 = "EXAMINE5_COMBO1",
+	---Pickup Object ID.
+	EXAMINE5_COMBO2 = "EXAMINE5_COMBO2",
+	---Pickup Object ID.
+	EXAMINE6_COMBO1 = "EXAMINE6_COMBO1",
+	---Pickup Object ID.
+	EXAMINE6_COMBO2 = "EXAMINE6_COMBO2",
+	---Pickup Object ID.
+	EXAMINE7_COMBO1 = "EXAMINE7_COMBO1",
+	---Pickup Object ID.
+	EXAMINE7_COMBO2 = "EXAMINE7_COMBO2",
+	---Pickup Object ID.
+	EXAMINE8_COMBO1 = "EXAMINE8_COMBO1",
+	---Pickup Object ID.
+	EXAMINE8_COMBO2 = "EXAMINE8_COMBO2",
+	---Object ID.
+	PUZZLE_HOLE1 = "PUZZLE_HOLE1",
+	---Object ID.
+	PUZZLE_HOLE2 = "PUZZLE_HOLE2",
+	---Object ID.
+	PUZZLE_HOLE3 = "PUZZLE_HOLE3",
+	---Object ID.
+	PUZZLE_HOLE4 = "PUZZLE_HOLE4",
+	---Object ID.
+	PUZZLE_HOLE5 = "PUZZLE_HOLE5",
+	---Object ID.
+	PUZZLE_HOLE6 = "PUZZLE_HOLE6",
+	---Object ID.
+	PUZZLE_HOLE7 = "PUZZLE_HOLE7",
+	---Object ID.
+	PUZZLE_HOLE8 = "PUZZLE_HOLE8",
+	---Object ID.
+	PUZZLE_HOLE9 = "PUZZLE_HOLE9",
+	---Object ID.
+	PUZZLE_HOLE10 = "PUZZLE_HOLE10",
+	---Object ID.
+	PUZZLE_HOLE11 = "PUZZLE_HOLE11",
+	---Object ID.
+	PUZZLE_HOLE12 = "PUZZLE_HOLE12",
+	---Object ID.
+	PUZZLE_HOLE13 = "PUZZLE_HOLE13",
+	---Object ID.
+	PUZZLE_HOLE14 = "PUZZLE_HOLE14",
+	---Object ID.
+	PUZZLE_HOLE15 = "PUZZLE_HOLE15",
+	---Object ID.
+	PUZZLE_HOLE16 = "PUZZLE_HOLE16",
+	---Object ID.
+	PUZZLE_DONE1 = "PUZZLE_DONE1",
+	---Object ID.
+	PUZZLE_DONE2 = "PUZZLE_DONE2",
+	---Object ID.
+	PUZZLE_DONE3 = "PUZZLE_DONE3",
+	---Object ID.
+	PUZZLE_DONE4 = "PUZZLE_DONE4",
+	---Object ID.
+	PUZZLE_DONE5 = "PUZZLE_DONE5",
+	---Object ID.
+	PUZZLE_DONE6 = "PUZZLE_DONE6",
+	---Object ID.
+	PUZZLE_DONE7 = "PUZZLE_DONE7",
+	---Object ID.
+	PUZZLE_DONE8 = "PUZZLE_DONE8",
+	---Object ID.
+	PUZZLE_DONE9 = "PUZZLE_DONE9",
+	---Object ID.
+	PUZZLE_DONE10 = "PUZZLE_DONE10",
+	---Object ID.
+	PUZZLE_DONE11 = "PUZZLE_DONE11",
+	---Object ID.
+	PUZZLE_DONE12 = "PUZZLE_DONE12",
+	---Object ID.
+	PUZZLE_DONE13 = "PUZZLE_DONE13",
+	---Object ID.
+	PUZZLE_DONE14 = "PUZZLE_DONE14",
+	---Object ID.
+	PUZZLE_DONE15 = "PUZZLE_DONE15",
+	---Object ID.
+	PUZZLE_DONE16 = "PUZZLE_DONE16",
+	---Object ID.
+	KEY_HOLE1 = "KEY_HOLE1",
+	---Object ID.
+	KEY_HOLE2 = "KEY_HOLE2",
+	---Object ID.
+	KEY_HOLE3 = "KEY_HOLE3",
+	---Object ID.
+	KEY_HOLE4 = "KEY_HOLE4",
+	---Object ID.
+	KEY_HOLE5 = "KEY_HOLE5",
+	---Object ID.
+	KEY_HOLE6 = "KEY_HOLE6",
+	---Object ID.
+	KEY_HOLE7 = "KEY_HOLE7",
+	---Object ID.
+	KEY_HOLE8 = "KEY_HOLE8",
+	---Object ID.
+	KEY_HOLE9 = "KEY_HOLE9",
+	---Object ID.
+	KEY_HOLE10 = "KEY_HOLE10",
+	---Object ID.
+	KEY_HOLE11 = "KEY_HOLE11",
+	---Object ID.
+	KEY_HOLE12 = "KEY_HOLE12",
+	---Object ID.
+	KEY_HOLE13 = "KEY_HOLE13",
+	---Object ID.
+	KEY_HOLE14 = "KEY_HOLE14",
+	---Object ID.
+	KEY_HOLE15 = "KEY_HOLE15",
+	---Object ID.
+	KEY_HOLE16 = "KEY_HOLE16",
+	---Object ID.
+	WATERSKIN1_EMPTY = "WATERSKIN1_EMPTY",
+	---Object ID.
+	WATERSKIN1_1 = "WATERSKIN1_1",
+	---Object ID.
+	WATERSKIN1_2 = "WATERSKIN1_2",
+	---Object ID.
+	WATERSKIN1_3 = "WATERSKIN1_3",
+	---Object ID.
+	WATERSKIN2_EMPTY = "WATERSKIN2_EMPTY",
+	---Object ID.
+	WATERSKIN2_1 = "WATERSKIN2_1",
+	---Object ID.
+	WATERSKIN2_2 = "WATERSKIN2_2",
+	---Object ID.
+	WATERSKIN2_3 = "WATERSKIN2_3",
+	---Object ID.
+	WATERSKIN2_4 = "WATERSKIN2_4",
+	---Object ID.
+	WATERSKIN2_5 = "WATERSKIN2_5",
+	---Pickup Object ID.
+	HAMMER_ITEM = "HAMMER_ITEM",
+	---Pickup Object ID.
+	CROWBAR_ITEM = "CROWBAR_ITEM",
+	---Pickup Object ID.
+	BURNING_TORCH_ITEM = "BURNING_TORCH_ITEM",
+	---Object ID.
+	CLOCKWORK_BEETLE = "CLOCKWORK_BEETLE",
+	---Object ID.
+	CLOCKWORK_BEETLE_COMBO1 = "CLOCKWORK_BEETLE_COMBO1",
+	---Object ID.
+	CLOCKWORK_BEETLE_COMBO2 = "CLOCKWORK_BEETLE_COMBO2",
+	---Object ID.
+	SWITCH_TYPE1 = "SWITCH_TYPE1",
+	---Object ID.
+	SWITCH_TYPE2 = "SWITCH_TYPE2",
+	---Object ID.
+	SWITCH_TYPE3 = "SWITCH_TYPE3",
+	---Object ID.
+	SWITCH_TYPE4 = "SWITCH_TYPE4",
+	---Object ID.
+	SWITCH_TYPE5 = "SWITCH_TYPE5",
+	---Object ID.
+	SWITCH_TYPE6 = "SWITCH_TYPE6",
+	---Object ID.
+	SWITCH_TYPE7 = "SWITCH_TYPE7",
+	---Object ID.
+	SWITCH_TYPE8 = "SWITCH_TYPE8",
+	---Object ID.
+	SWITCH_TYPE9 = "SWITCH_TYPE9",
+	---Object ID.
+	SWITCH_TYPE10 = "SWITCH_TYPE10",
+	---Object ID.
+	SWITCH_TYPE11 = "SWITCH_TYPE11",
+	---Object ID.
+	SWITCH_TYPE12 = "SWITCH_TYPE12",
+	---Object ID.
+	SWITCH_TYPE13 = "SWITCH_TYPE13",
+	---Object ID.
+	SWITCH_TYPE14 = "SWITCH_TYPE14",
+	---Object ID.
+	SWITCH_TYPE15 = "SWITCH_TYPE15",
+	---Object ID.
+	SWITCH_TYPE16 = "SWITCH_TYPE16",
+	---Object ID.
+	SHOOT_SWITCH1 = "SHOOT_SWITCH1",
+	---Object ID.
+	SHOOT_SWITCH2 = "SHOOT_SWITCH2",
+	---Object ID.
+	SHOOT_SWITCH3 = "SHOOT_SWITCH3",
+	---Object ID.
+	SHOOT_SWITCH4 = "SHOOT_SWITCH4",
+	---Object ID.
+	AIRLOCK_SWITCH = "AIRLOCK_SWITCH",
+	---Object ID.
+	UNDERWATER_WALL_SWITCH1 = "UNDERWATER_WALL_SWITCH1",
+	---Object ID.
+	UNDERWATER_WALL_SWITCH2 = "UNDERWATER_WALL_SWITCH2",
+	---Object ID.
+	UNDERWATER_CEILING_SWITCH1 = "UNDERWATER_CEILING_SWITCH1",
+	---Object ID.
+	UNDERWATER_CEILING_SWITCH2 = "UNDERWATER_CEILING_SWITCH2",
+	---Object ID.
+	TURN_SWITCH = "TURN_SWITCH",
+	---Object ID.
+	COG_SWITCH = "COG_SWITCH",
+	---Object ID.
+	LEVER_SWITCH = "LEVER_SWITCH",
+	---Object ID.
+	JUMP_SWITCH = "JUMP_SWITCH",
+	---Object ID.
+	CROWBAR_SWITCH = "CROWBAR_SWITCH",
+	---Object ID.
+	PULLEY = "PULLEY",
+	---Object ID.
+	CROWDOVE_SWITCH = "CROWDOVE_SWITCH",
+	---Object ID.
+	MINECART_SWITCH = "MINECART_SWITCH",
+	---Object ID.
+	DOOR_TYPE1 = "DOOR_TYPE1",
+	---Object ID.
+	DOOR_TYPE2 = "DOOR_TYPE2",
+	---Object ID.
+	DOOR_TYPE3 = "DOOR_TYPE3",
+	---Object ID.
+	DOOR_TYPE4 = "DOOR_TYPE4",
+	---Object ID.
+	DOOR_TYPE5 = "DOOR_TYPE5",
+	---Object ID.
+	DOOR_TYPE6 = "DOOR_TYPE6",
+	---Object ID.
+	DOOR_TYPE7 = "DOOR_TYPE7",
+	---Object ID.
+	DOOR_TYPE8 = "DOOR_TYPE8",
+	---Object ID.
+	DOOR_TYPE9 = "DOOR_TYPE9",
+	---Object ID.
+	DOOR_TYPE10 = "DOOR_TYPE10",
+	---Object ID.
+	DOOR_TYPE11 = "DOOR_TYPE11",
+	---Object ID.
+	DOOR_TYPE12 = "DOOR_TYPE12",
+	---Object ID.
+	DOOR_TYPE13 = "DOOR_TYPE13",
+	---Object ID.
+	DOOR_TYPE14 = "DOOR_TYPE14",
+	---Object ID.
+	DOOR_TYPE15 = "DOOR_TYPE15",
+	---Object ID.
+	DOOR_TYPE16 = "DOOR_TYPE16",
+	---Object ID.
+	DOOR_TYPE17 = "DOOR_TYPE17",
+	---Object ID.
+	DOOR_TYPE18 = "DOOR_TYPE18",
+	---Object ID.
+	DOOR_TYPE19 = "DOOR_TYPE19",
+	---Object ID.
+	DOOR_TYPE20 = "DOOR_TYPE20",
+	---Object ID.
+	DOOR_TYPE21 = "DOOR_TYPE21",
+	---Object ID.
+	DOOR_TYPE22 = "DOOR_TYPE22",
+	---Object ID.
+	DOOR_TYPE23 = "DOOR_TYPE23",
+	---Object ID.
+	DOOR_TYPE24 = "DOOR_TYPE24",
+	---Object ID.
+	DOOR_TYPE25 = "DOOR_TYPE25",
+	---Object ID.
+	DOOR_TYPE26 = "DOOR_TYPE26",
+	---Object ID.
+	DOOR_TYPE27 = "DOOR_TYPE27",
+	---Object ID.
+	DOOR_TYPE28 = "DOOR_TYPE28",
+	---Object ID.
+	DOOR_TYPE29 = "DOOR_TYPE29",
+	---Object ID.
+	DOOR_TYPE30 = "DOOR_TYPE30",
+	---Object ID.
+	LIFT_DOORS1 = "LIFT_DOORS1",
+	---Object ID.
+	LIFT_DOORS2 = "LIFT_DOORS2",
+	---Object ID.
+	PUSHPULL_DOOR1 = "PUSHPULL_DOOR1",
+	---Object ID.
+	PUSHPULL_DOOR2 = "PUSHPULL_DOOR2",
+	---Object ID.
+	PUSHPULL_DOOR3 = "PUSHPULL_DOOR3",
+	---Object ID.
+	PUSHPULL_DOOR4 = "PUSHPULL_DOOR4",
+	---Object ID.
+	KICK_DOOR1 = "KICK_DOOR1",
+	---Object ID.
+	KICK_DOOR2 = "KICK_DOOR2",
+	---Object ID.
+	KICK_DOOR3 = "KICK_DOOR3",
+	---Object ID.
+	KICK_DOOR4 = "KICK_DOOR4",
+	---Object ID.
+	UNDERWATER_DOOR1 = "UNDERWATER_DOOR1",
+	---Object ID.
+	UNDERWATER_DOOR2 = "UNDERWATER_DOOR2",
+	---Object ID.
+	UNDERWATER_DOOR3 = "UNDERWATER_DOOR3",
+	---Object ID.
+	UNDERWATER_DOOR4 = "UNDERWATER_DOOR4",
+	---Object ID.
+	DOUBLE_DOORS1 = "DOUBLE_DOORS1",
+	---Object ID.
+	DOUBLE_DOORS2 = "DOUBLE_DOORS2",
+	---Object ID.
+	DOUBLE_DOORS3 = "DOUBLE_DOORS3",
+	---Object ID.
+	DOUBLE_DOORS4 = "DOUBLE_DOORS4",
+	---Object ID.
+	SEQUENCE_DOOR1 = "SEQUENCE_DOOR1",
+	---Object ID.
+	SEQUENCE_SWITCH1 = "SEQUENCE_SWITCH1",
+	---Object ID.
+	SEQUENCE_SWITCH2 = "SEQUENCE_SWITCH2",
+	---Object ID.
+	SEQUENCE_SWITCH3 = "SEQUENCE_SWITCH3",
+	---Object ID.
+	STEEL_DOOR = "STEEL_DOOR",
+	---Object ID.
+	GOD_HEAD = "GOD_HEAD",
+	---Object ID.
+	BREAKABLE_WALL = "BREAKABLE_WALL",
+	---Pickup Object ID.
+	PISTOLS_ITEM = "PISTOLS_ITEM",
+	---Pickup Object ID.
+	PISTOLS_AMMO_ITEM = "PISTOLS_AMMO_ITEM",
+	---Pickup Object ID.
+	UZI_ITEM = "UZI_ITEM",
+	---Pickup Object ID.
+	UZI_AMMO_ITEM = "UZI_AMMO_ITEM",
+	---Pickup Object ID.
+	SHOTGUN_ITEM = "SHOTGUN_ITEM",
+	---Pickup Object ID.
+	SHOTGUN_AMMO1_ITEM = "SHOTGUN_AMMO1_ITEM",
+	---Pickup Object ID.
+	SHOTGUN_AMMO2_ITEM = "SHOTGUN_AMMO2_ITEM",
+	---Pickup Object ID.
+	REVOLVER_ITEM = "REVOLVER_ITEM",
+	---Pickup Object ID.
+	REVOLVER_AMMO_ITEM = "REVOLVER_AMMO_ITEM",
+	---Pickup Object ID.
+	CROSSBOW_ITEM = "CROSSBOW_ITEM",
+	---Pickup Object ID.
+	CROSSBOW_AMMO1_ITEM = "CROSSBOW_AMMO1_ITEM",
+	---Pickup Object ID.
+	CROSSBOW_AMMO2_ITEM = "CROSSBOW_AMMO2_ITEM",
+	---Pickup Object ID.
+	CROSSBOW_AMMO3_ITEM = "CROSSBOW_AMMO3_ITEM",
+	---Object ID.
+	CROSSBOW_BOLT = "CROSSBOW_BOLT",
+	---Pickup Object ID.
+	HK_ITEM = "HK_ITEM",
+	---Pickup Object ID.
+	HK_AMMO_ITEM = "HK_AMMO_ITEM",
+	---Pickup Object ID.
+	GRENADE_GUN_ITEM = "GRENADE_GUN_ITEM",
+	---Pickup Object ID.
+	GRENADE_AMMO1_ITEM = "GRENADE_AMMO1_ITEM",
+	---Pickup Object ID.
+	GRENADE_AMMO2_ITEM = "GRENADE_AMMO2_ITEM",
+	---Pickup Object ID.
+	GRENADE_AMMO3_ITEM = "GRENADE_AMMO3_ITEM",
+	---Object ID.
+	GRENADE = "GRENADE",
+	---Pickup Object ID.
+	ROCKET_LAUNCHER_ITEM = "ROCKET_LAUNCHER_ITEM",
+	---Pickup Object ID.
+	ROCKET_LAUNCHER_AMMO_ITEM = "ROCKET_LAUNCHER_AMMO_ITEM",
+	---Object ID.
+	ROCKET = "ROCKET",
+	---Pickup Object ID.
+	HARPOON_ITEM = "HARPOON_ITEM",
+	---Pickup Object ID.
+	HARPOON_AMMO_ITEM = "HARPOON_AMMO_ITEM",
+	---Object ID.
+	HARPOON = "HARPOON",
+	---Pickup Object ID.
+	GOLDROSE_ITEM = "GOLDROSE_ITEM",
+	---Pickup Object ID.
+	BIGMEDI_ITEM = "BIGMEDI_ITEM",
+	---Pickup Object ID.
+	SMALLMEDI_ITEM = "SMALLMEDI_ITEM",
+	---Pickup Object ID.
+	LASERSIGHT_ITEM = "LASERSIGHT_ITEM",
+	---Pickup Object ID.
+	BINOCULARS_ITEM = "BINOCULARS_ITEM",
+	---Pickup Object ID.
+	SILENCER_ITEM = "SILENCER_ITEM",
+	---Pickup Object ID.
+	FLARE_ITEM = "FLARE_ITEM",
+	---Pickup Object ID.
+	FLARE_INV_ITEM = "FLARE_INV_ITEM",
+	---Pickup Object ID.
+	COMPASS_ITEM = "COMPASS_ITEM",
+	---Pickup Object ID.
+	DIARY_ITEM = "DIARY_ITEM",
+	---Pickup Object ID.
+	STOPWATCH_ITEM = "STOPWATCH_ITEM",
+	---Pickup Object ID.
+	MEMCARD_LOAD_INV_ITEM = "MEMCARD_LOAD_INV_ITEM",
+	---Pickup Object ID.
+	MEMCARD_SAVE_INV_ITEM = "MEMCARD_SAVE_INV_ITEM",
+	---Pickup Object ID.
+	PC_LOAD_INV_ITEM = "PC_LOAD_INV_ITEM",
+	---Pickup Object ID.
+	PC_SAVE_INV_ITEM = "PC_SAVE_INV_ITEM",
+	---Object ID.
+	DIARY_OPEN = "DIARY_OPEN",
+	---Object ID.
+	INVENTORY_PASSPORT = "INVENTORY_PASSPORT",
+	---Object ID.
+	INVENTORY_SUNGLASSES = "INVENTORY_SUNGLASSES",
+	---Object ID.
+	INVENTORY_KEYS = "INVENTORY_KEYS",
+	---Object ID.
+	INVENTORY_HEADPHONES = "INVENTORY_HEADPHONES",
+	---Object ID.
+	INVENTORY_PHOTO = "INVENTORY_PHOTO",
+	---Object ID.
+	SMOKE_EMITTER_WHITE = "SMOKE_EMITTER_WHITE",
+	---Object ID.
+	SMOKE_EMITTER_BLACK = "SMOKE_EMITTER_BLACK",
+	---Object ID.
+	SMOKE_EMITTER = "SMOKE_EMITTER",
+	---Object ID.
+	EARTHQUAKE = "EARTHQUAKE",
+	---Object ID.
+	BUBBLES = "BUBBLES",
+	---Object ID.
+	WATERFALLMIST = "WATERFALLMIST",
+	---Object ID.
+	GUNSHELL = "GUNSHELL",
+	---Object ID.
+	SHOTGUNSHELL = "SHOTGUNSHELL",
+	---Object ID.
+	GUN_FLASH = "GUN_FLASH",
+	---Object ID.
+	GUN_FLASH2 = "GUN_FLASH2",
+	---Object ID.
+	COLOR_LIGHT = "COLOR_LIGHT",
+	---Object ID.
+	BLINKING_LIGHT = "BLINKING_LIGHT",
+	---Object ID.
+	PULSE_LIGHT = "PULSE_LIGHT",
+	---Object ID.
+	STROBE_LIGHT = "STROBE_LIGHT",
+	---Object ID.
+	ELECTRICAL_LIGHT = "ELECTRICAL_LIGHT",
+	---Object ID.
+	LENS_FLARE = "LENS_FLARE",
+	---Object ID.
+	ENERGY_BUBBLES = "ENERGY_BUBBLES",
+	---Object ID.
+	PLANET_EFFECT = "PLANET_EFFECT",
+	---Object ID.
+	BUTTERFLY = "BUTTERFLY",
+	---Object ID.
+	AI_GUARD = "AI_GUARD",
+	---Object ID.
+	AI_AMBUSH = "AI_AMBUSH",
+	---Object ID.
+	AI_PATROL1 = "AI_PATROL1",
+	---Object ID.
+	AI_MODIFY = "AI_MODIFY",
+	---Object ID.
+	AI_FOLLOW = "AI_FOLLOW",
+	---Object ID.
+	AI_PATROL2 = "AI_PATROL2",
+	---Object ID.
+	AI_X1 = "AI_X1",
+	---Object ID.
+	AI_X2 = "AI_X2",
+	---Object ID.
+	LARA_START_POS = "LARA_START_POS",
+	---Object ID.
+	TELEPORTER = "TELEPORTER",
+	---Object ID.
+	LIFT_TELEPORTER = "LIFT_TELEPORTER",
+	---Object ID.
+	LASER_BARRIER = "LASER_BARRIER",
+	---Object ID.
+	STEAM_LASERS = "STEAM_LASERS",
+	---Object ID.
+	FLOOR_LASERS = "FLOOR_LASERS",
+	---Object ID.
+	KILL_ALL_TRIGGERS = "KILL_ALL_TRIGGERS",
+	---Object ID.
+	TRIGGER_TRIGGERER = "TRIGGER_TRIGGERER",
+	---Object ID.
+	HIGH_OBJECT1 = "HIGH_OBJECT1",
+	---Object ID.
+	EMBER_EMITTER = "EMBER_EMITTER",
+	---Object ID.
+	SMASH_OBJECT1 = "SMASH_OBJECT1",
+	---Object ID.
+	SMASH_OBJECT2 = "SMASH_OBJECT2",
+	---Object ID.
+	SMASH_OBJECT3 = "SMASH_OBJECT3",
+	---Object ID.
+	SMASH_OBJECT4 = "SMASH_OBJECT4",
+	---Object ID.
+	SMASH_OBJECT5 = "SMASH_OBJECT5",
+	---Object ID.
+	SMASH_OBJECT6 = "SMASH_OBJECT6",
+	---Object ID.
+	SMASH_OBJECT7 = "SMASH_OBJECT7",
+	---Object ID.
+	SMASH_OBJECT8 = "SMASH_OBJECT8",
+	---Object ID.
+	SMASH_OBJECT9 = "SMASH_OBJECT9",
+	---Object ID.
+	SMASH_OBJECT10 = "SMASH_OBJECT10",
+	---Object ID.
+	SMASH_OBJECT11 = "SMASH_OBJECT11",
+	---Object ID.
+	SMASH_OBJECT12 = "SMASH_OBJECT12",
+	---Object ID.
+	SMASH_OBJECT13 = "SMASH_OBJECT13",
+	---Object ID.
+	SMASH_OBJECT14 = "SMASH_OBJECT14",
+	---Object ID.
+	SMASH_OBJECT15 = "SMASH_OBJECT15",
+	---Object ID.
+	SMASH_OBJECT16 = "SMASH_OBJECT16",
+	---Object ID.
+	BODY_PART = "BODY_PART",
+	---Object ID.
+	CAMERA_TARGET = "CAMERA_TARGET",
+	---Object ID.
+	WATERFALL1 = "WATERFALL1",
+	---Object ID.
+	WATERFALL2 = "WATERFALL2",
+	---Object ID.
+	WATERFALL3 = "WATERFALL3",
+	---Object ID.
+	WATERFALL4 = "WATERFALL4",
+	---Object ID.
+	WATERFALL5 = "WATERFALL5",
+	---Object ID.
+	WATERFALL6 = "WATERFALL6",
+	---Object ID.
+	WATERFALLSS1 = "WATERFALLSS1",
+	---Object ID.
+	WATERFALLSS2 = "WATERFALLSS2",
+	---Object ID.
+	FISHTANK = "FISHTANK",
+	---Object ID.
+	DOPPELGANGER_ORIGIN = "DOPPELGANGER_ORIGIN",
+	---Object ID.
+	CORPSE = "CORPSE",
+	---Object ID.
+	WRAITH_TRAP = "WRAITH_TRAP",
+	---Object ID.
+	WATERFALL_EMITTER = "WATERFALL_EMITTER",
+	---Object ID.
+	FIREFLY_EMITTER = "FIREFLY_EMITTER",
+	---Object ID.
+	MESHSWAP1 = "MESHSWAP1",
+	---Object ID.
+	MESHSWAP2 = "MESHSWAP2",
+	---Object ID.
+	MESHSWAP3 = "MESHSWAP3",
+	---Object ID.
+	MESHSWAP4 = "MESHSWAP4",
+	---Object ID.
+	MESHSWAP5 = "MESHSWAP5",
+	---Object ID.
+	MESHSWAP6 = "MESHSWAP6",
+	---Object ID.
+	MESHSWAP7 = "MESHSWAP7",
+	---Object ID.
+	MESHSWAP8 = "MESHSWAP8",
+	---Object ID.
+	MESHSWAP9 = "MESHSWAP9",
+	---Object ID.
+	MESHSWAP10 = "MESHSWAP10",
+	---Object ID.
+	MESHSWAP_BADDY1 = "MESHSWAP_BADDY1",
+	---Object ID.
+	MESHSWAP_BADDY2 = "MESHSWAP_BADDY2",
+	---Object ID.
+	MESHSWAP_MAFIA2 = "MESHSWAP_MAFIA2",
+	---Object ID.
+	MESHSWAP_IMP = "MESHSWAP_IMP",
+	---Object ID.
+	MESHSWAP_CYBORG = "MESHSWAP_CYBORG",
+	---Object ID.
+	MESHSWAP_ROMAN_GOD1 = "MESHSWAP_ROMAN_GOD1",
+	---Object ID.
+	MESHSWAP_ROMAN_GOD2 = "MESHSWAP_ROMAN_GOD2",
+	---Object ID.
+	MESHSWAP_MONKEY_MEDIPACK = "MESHSWAP_MONKEY_MEDIPACK",
+	---Object ID.
+	MESHSWAP_MONKEY_KEY = "MESHSWAP_MONKEY_KEY",
+	---Object ID.
+	MESHSWAP_WINSTON_ARMY_OUTFIT = "MESHSWAP_WINSTON_ARMY_OUTFIT",
+	---Object ID.
+	ANIMATING1 = "ANIMATING1",
+	---Object ID.
+	ANIMATING2 = "ANIMATING2",
+	---Object ID.
+	ANIMATING3 = "ANIMATING3",
+	---Object ID.
+	ANIMATING4 = "ANIMATING4",
+	---Object ID.
+	ANIMATING5 = "ANIMATING5",
+	---Object ID.
+	ANIMATING6 = "ANIMATING6",
+	---Object ID.
+	ANIMATING7 = "ANIMATING7",
+	---Object ID.
+	ANIMATING8 = "ANIMATING8",
+	---Object ID.
+	ANIMATING9 = "ANIMATING9",
+	---Object ID.
+	ANIMATING10 = "ANIMATING10",
+	---Object ID.
+	ANIMATING11 = "ANIMATING11",
+	---Object ID.
+	ANIMATING12 = "ANIMATING12",
+	---Object ID.
+	ANIMATING13 = "ANIMATING13",
+	---Object ID.
+	ANIMATING14 = "ANIMATING14",
+	---Object ID.
+	ANIMATING15 = "ANIMATING15",
+	---Object ID.
+	ANIMATING16 = "ANIMATING16",
+	---Object ID.
+	ANIMATING17 = "ANIMATING17",
+	---Object ID.
+	ANIMATING18 = "ANIMATING18",
+	---Object ID.
+	ANIMATING19 = "ANIMATING19",
+	---Object ID.
+	ANIMATING20 = "ANIMATING20",
+	---Object ID.
+	ANIMATING21 = "ANIMATING21",
+	---Object ID.
+	ANIMATING22 = "ANIMATING22",
+	---Object ID.
+	ANIMATING23 = "ANIMATING23",
+	---Object ID.
+	ANIMATING24 = "ANIMATING24",
+	---Object ID.
+	ANIMATING25 = "ANIMATING25",
+	---Object ID.
+	ANIMATING26 = "ANIMATING26",
+	---Object ID.
+	ANIMATING27 = "ANIMATING27",
+	---Object ID.
+	ANIMATING28 = "ANIMATING28",
+	---Object ID.
+	ANIMATING29 = "ANIMATING29",
+	---Object ID.
+	ANIMATING30 = "ANIMATING30",
+	---Object ID.
+	ANIMATING31 = "ANIMATING31",
+	---Object ID.
+	ANIMATING32 = "ANIMATING32",
+	---Object ID.
+	ANIMATING33 = "ANIMATING33",
+	---Object ID.
+	ANIMATING34 = "ANIMATING34",
+	---Object ID.
+	ANIMATING35 = "ANIMATING35",
+	---Object ID.
+	ANIMATING36 = "ANIMATING36",
+	---Object ID.
+	ANIMATING37 = "ANIMATING37",
+	---Object ID.
+	ANIMATING38 = "ANIMATING38",
+	---Object ID.
+	ANIMATING39 = "ANIMATING39",
+	---Object ID.
+	ANIMATING40 = "ANIMATING40",
+	---Object ID.
+	ANIMATING41 = "ANIMATING41",
+	---Object ID.
+	ANIMATING42 = "ANIMATING42",
+	---Object ID.
+	ANIMATING43 = "ANIMATING43",
+	---Object ID.
+	ANIMATING44 = "ANIMATING44",
+	---Object ID.
+	ANIMATING45 = "ANIMATING45",
+	---Object ID.
+	ANIMATING46 = "ANIMATING46",
+	---Object ID.
+	ANIMATING47 = "ANIMATING47",
+	---Object ID.
+	ANIMATING48 = "ANIMATING48",
+	---Object ID.
+	ANIMATING49 = "ANIMATING49",
+	---Object ID.
+	ANIMATING50 = "ANIMATING50",
+	---Object ID.
+	ANIMATING51 = "ANIMATING51",
+	---Object ID.
+	ANIMATING52 = "ANIMATING52",
+	---Object ID.
+	ANIMATING53 = "ANIMATING53",
+	---Object ID.
+	ANIMATING54 = "ANIMATING54",
+	---Object ID.
+	ANIMATING55 = "ANIMATING55",
+	---Object ID.
+	ANIMATING56 = "ANIMATING56",
+	---Object ID.
+	ANIMATING57 = "ANIMATING57",
+	---Object ID.
+	ANIMATING58 = "ANIMATING58",
+	---Object ID.
+	ANIMATING59 = "ANIMATING59",
+	---Object ID.
+	ANIMATING60 = "ANIMATING60",
+	---Object ID.
+	ANIMATING61 = "ANIMATING61",
+	---Object ID.
+	ANIMATING62 = "ANIMATING62",
+	---Object ID.
+	ANIMATING63 = "ANIMATING63",
+	---Object ID.
+	ANIMATING64 = "ANIMATING64",
+	---Object ID.
+	ANIMATING65 = "ANIMATING65",
+	---Object ID.
+	ANIMATING66 = "ANIMATING66",
+	---Object ID.
+	ANIMATING67 = "ANIMATING67",
+	---Object ID.
+	ANIMATING68 = "ANIMATING68",
+	---Object ID.
+	ANIMATING69 = "ANIMATING69",
+	---Object ID.
+	ANIMATING70 = "ANIMATING70",
+	---Object ID.
+	ANIMATING71 = "ANIMATING71",
+	---Object ID.
+	ANIMATING72 = "ANIMATING72",
+	---Object ID.
+	ANIMATING73 = "ANIMATING73",
+	---Object ID.
+	ANIMATING74 = "ANIMATING74",
+	---Object ID.
+	ANIMATING75 = "ANIMATING75",
+	---Object ID.
+	ANIMATING76 = "ANIMATING76",
+	---Object ID.
+	ANIMATING77 = "ANIMATING77",
+	---Object ID.
+	ANIMATING78 = "ANIMATING78",
+	---Object ID.
+	ANIMATING79 = "ANIMATING79",
+	---Object ID.
+	ANIMATING80 = "ANIMATING80",
+	---Object ID.
+	ANIMATING81 = "ANIMATING81",
+	---Object ID.
+	ANIMATING82 = "ANIMATING82",
+	---Object ID.
+	ANIMATING83 = "ANIMATING83",
+	---Object ID.
+	ANIMATING84 = "ANIMATING84",
+	---Object ID.
+	ANIMATING85 = "ANIMATING85",
+	---Object ID.
+	ANIMATING86 = "ANIMATING86",
+	---Object ID.
+	ANIMATING87 = "ANIMATING87",
+	---Object ID.
+	ANIMATING88 = "ANIMATING88",
+	---Object ID.
+	ANIMATING89 = "ANIMATING89",
+	---Object ID.
+	ANIMATING90 = "ANIMATING90",
+	---Object ID.
+	ANIMATING91 = "ANIMATING91",
+	---Object ID.
+	ANIMATING92 = "ANIMATING92",
+	---Object ID.
+	ANIMATING93 = "ANIMATING93",
+	---Object ID.
+	ANIMATING94 = "ANIMATING94",
+	---Object ID.
+	ANIMATING95 = "ANIMATING95",
+	---Object ID.
+	ANIMATING96 = "ANIMATING96",
+	---Object ID.
+	ANIMATING97 = "ANIMATING97",
+	---Object ID.
+	ANIMATING98 = "ANIMATING98",
+	---Object ID.
+	ANIMATING99 = "ANIMATING99",
+	---Object ID.
+	ANIMATING100 = "ANIMATING100",
+	---Object ID.
+	ANIMATING101 = "ANIMATING101",
+	---Object ID.
+	ANIMATING102 = "ANIMATING102",
+	---Object ID.
+	ANIMATING103 = "ANIMATING103",
+	---Object ID.
+	ANIMATING104 = "ANIMATING104",
+	---Object ID.
+	ANIMATING105 = "ANIMATING105",
+	---Object ID.
+	ANIMATING106 = "ANIMATING106",
+	---Object ID.
+	ANIMATING107 = "ANIMATING107",
+	---Object ID.
+	ANIMATING108 = "ANIMATING108",
+	---Object ID.
+	ANIMATING109 = "ANIMATING109",
+	---Object ID.
+	ANIMATING110 = "ANIMATING110",
+	---Object ID.
+	ANIMATING111 = "ANIMATING111",
+	---Object ID.
+	ANIMATING112 = "ANIMATING112",
+	---Object ID.
+	ANIMATING113 = "ANIMATING113",
+	---Object ID.
+	ANIMATING114 = "ANIMATING114",
+	---Object ID.
+	ANIMATING115 = "ANIMATING115",
+	---Object ID.
+	ANIMATING116 = "ANIMATING116",
+	---Object ID.
+	ANIMATING117 = "ANIMATING117",
+	---Object ID.
+	ANIMATING118 = "ANIMATING118",
+	---Object ID.
+	ANIMATING119 = "ANIMATING119",
+	---Object ID.
+	ANIMATING120 = "ANIMATING120",
+	---Object ID.
+	ANIMATING121 = "ANIMATING121",
+	---Object ID.
+	ANIMATING122 = "ANIMATING122",
+	---Object ID.
+	ANIMATING123 = "ANIMATING123",
+	---Object ID.
+	ANIMATING124 = "ANIMATING124",
+	---Object ID.
+	ANIMATING125 = "ANIMATING125",
+	---Object ID.
+	ANIMATING126 = "ANIMATING126",
+	---Object ID.
+	ANIMATING127 = "ANIMATING127",
+	---Object ID.
+	ANIMATING128 = "ANIMATING128",
+	---Object ID.
+	LASERHEAD_BASE = "LASERHEAD_BASE",
+	---Object ID.
+	LASERHEAD_TENTACLE = "LASERHEAD_TENTACLE",
+	---Object ID.
+	BRIDGE_FLAT = "BRIDGE_FLAT",
+	---Object ID.
+	BRIDGE_TILT1 = "BRIDGE_TILT1",
+	---Object ID.
+	BRIDGE_TILT2 = "BRIDGE_TILT2",
+	---Object ID.
+	BRIDGE_TILT3 = "BRIDGE_TILT3",
+	---Object ID.
+	BRIDGE_TILT4 = "BRIDGE_TILT4",
+	---Object ID.
+	BRIDGE_CUSTOM = "BRIDGE_CUSTOM",
+	---Object ID.
+	HORIZON = "HORIZON",
+	---Sprite Object ID.
+	SKY_GRAPHICS = "SKY_GRAPHICS",
+	---Sprite Object ID.
+	DEFAULT_SPRITES = "DEFAULT_SPRITES",
+	---Sprite Object ID.
+	MISC_SPRITES = "MISC_SPRITES",
+	---Sprite Object ID.
+	CUSTOM_SPRITES = "CUSTOM_SPRITES",
+	---Sprite Object ID.
+	FIRE_SPRITES = "FIRE_SPRITES",
+	---Sprite Object ID.
+	SMOKE_SPRITES = "SMOKE_SPRITES",
+	---Sprite Object ID.
+	SPARK_SPRITE = "SPARK_SPRITE",
+	---Sprite Object ID.
+	DRIP_SPRITE = "DRIP_SPRITE",
+	---Sprite Object ID.
+	EXPLOSION_SPRITES = "EXPLOSION_SPRITES",
+	---Sprite Object ID.
+	MOTORBOAT_FOAM_SPRITES = "MOTORBOAT_FOAM_SPRITES",
+	---Sprite Object ID.
+	RUBBER_BOAT_WAVE_SPRITES = "RUBBER_BOAT_WAVE_SPRITES",
+	---Sprite Object ID.
+	SKIDOO_SNOW_TRAIL_SPRITES = "SKIDOO_SNOW_TRAIL_SPRITES",
+	---Sprite Object ID.
+	KAYAK_PADDLE_TRAIL_SPRITE = "KAYAK_PADDLE_TRAIL_SPRITE",
+	---Object ID.
+	KAYAK_WAKE_SPRTIES = "KAYAK_WAKE_SPRTIES",
+	---Object ID.
+	BINOCULAR_GRAPHICS = "BINOCULAR_GRAPHICS",
+	---Sprite Object ID.
+	LASERSIGHT_GRAPHICS = "LASERSIGHT_GRAPHICS",
+	---Sprite Object ID.
+	CAUSTIC_TEXTURES = "CAUSTIC_TEXTURES",
+	---Sprite Object ID.
+	BAR_BORDER_GRAPHICS = "BAR_BORDER_GRAPHICS",
+	---Sprite Object ID.
+	HEALTH_BAR_TEXTURE = "HEALTH_BAR_TEXTURE",
+	---Sprite Object ID.
+	AIR_BAR_TEXTURE = "AIR_BAR_TEXTURE",
+	---Sprite Object ID.
+	DASH_BAR_TEXTURE = "DASH_BAR_TEXTURE",
+	---Sprite Object ID.
+	SFX_BAR_TEXTURE = "SFX_BAR_TEXTURE",
+	---Sprite Object ID.
+	WATERFALL_SPRITES = "WATERFALL_SPRITES",
+	---Sprite Object ID.
+	FIREFLY_SPRITES = "FIREFLY_SPRITES",
+	---Sprite Object ID.
+	CROSSHAIR_GRAPHICS = "CROSSHAIR_GRAPHICS",
+	---Sprite Object ID.
+	SPEEDOMETER_GRAPHICS = "SPEEDOMETER_GRAPHICS",
+	---Sprite Object ID.
+	CUSTOM_BAR_GRAPHICS = "CUSTOM_BAR_GRAPHICS",
+	---Sprite Object ID.
+	CUSTOM_AMMO_GRAPHICS = "CUSTOM_AMMO_GRAPHICS",
+	---Sprite Object ID.
+	DIARY_SPRITES = "DIARY_SPRITES",
+	---Sprite Object ID.
+	DIARY_ENTRY_SPRITES = "DIARY_ENTRY_SPRITES",
+	---Sprite Object ID.
+	SNOW_SPRITES = "SNOW_SPRITES",
+	---Sprite Object ID.
+	RAIN_SPRITES = "RAIN_SPRITES",
+	---Sprite Object ID.
+	INTERACTION_SPRITES = "INTERACTION_SPRITES",
+}
+
+---Module-prefixed alias for ObjID
+Objects.ObjID = ObjID
+
+---Constants for room flag IDs.
+---Corresponds to room flags in Tomb Editor.
+---To be used with Objects.Room.SetFlag and Objects.Room.GetFlag functions.
+---@enum RoomFlagID
+RoomFlagID = {
+	---Water room flag.
+	WATER = "WATER",
+	---Quicksand room flag.
+	QUICKSAND = "QUICKSAND",
+	---Skybox room flag.
+	SKYBOX = "SKYBOX",
+	---Wind room flag.
+	WIND = "WIND",
+	---Cold room flag.
+	COLD = "COLD",
+	---Damage room flag.
+	DAMAGE = "DAMAGE",
+	---No lens flare room flag.
+	NOLENSFLARE = "NOLENSFLARE",
+}
+
+---Module-prefixed alias for RoomFlagID
+Objects.RoomFlagID = RoomFlagID
+
+---Constants for room reverb types.
+---Corresponds to room reverb setting set in Tomb Editor.
+---To be used with Objects.Room.GetReverbType and Objects.Room.SetReverbType functions.
+---@enum RoomReverb
+RoomReverb = {
+	---Outdoor / open environment reverb.
+	OUTSIDE = "OUTSIDE",
+	---Small room reverb.
+	SMALL = "SMALL",
+	---Medium room reverb.
+	MEDIUM = "MEDIUM",
+	---Large room reverb.
+	LARGE = "LARGE",
+	---Pipe / tunnel reverb.
+	PIPE = "PIPE",
+}
+
+---Module-prefixed alias for RoomReverb
+Objects.RoomReverb = RoomReverb
+
+---AI object.
+---@class AIObject
+AIObject = {}
+
+---Module-prefixed alias for AIObject
+Objects.AIObject = AIObject
+
+---Get the object's position.
+---@return Vec3 # A copy of the object's position.
+function AIObject:GetPosition() end
+
+---Set the object's position.
+---@param position Vec3 # The new position of the object.
+function AIObject:SetPosition(position) end
+
+---Get the object's Y-axis rotation.
+---@return integer # The object's Y-axis rotation.
+function AIObject:GetRotationY() end
+
+---Set the object's Y-axis rotation.
+---@param rotation integer # The object's new Y-axis rotation.
+function AIObject:SetRotationY(rotation) end
+
+---Get the object's unique string identifier.
+---@return string # The object's name.
+function AIObject:GetName() end
+
+---Set the object's unique string identifier.
+---@param name string # The object's new name.
+function AIObject:SetName(name) end
+
+---Get the current room of the object.
+---@return Room # current room of the object.
+function AIObject:GetRoom() end
+
+---Get the current room number of the object.
+---@return integer # Number representing the current room of the object.
+function AIObject:GetRoomNumber() end
+
+---Set room number of the object.
+---This is used in conjunction with SetPosition to teleport the object to a new room.
+---@param ID integer # The ID of the new room.
+function AIObject:SetRoomNumber(ID) end
+
+---Retrieve the object ID.
+---@return integer # A number representing the ID of the object.
+function AIObject:GetObjectID() end
+
+---Change the object ID.
+---This will change the type of AI object it is.
+---Note that a baddy will gain the behaviour of the tile it's on _before_ said baddy is triggered.
+---This means that changing the type of an AI object beneath a moveable will have no effect.
+---Instead, this function can be used to change an object that the baddy isn't standing on.
+---For example, you could have a pair of AI_GUARD objects, and change one or the other two AI_PATROL_1 based on whether the player has a certain item or not.
+---@param ID ObjID # the new ID.
+function AIObject:SetObjectID(ID) end
+
+---Constructor for AIObject
+---@return AIObject # A new AIObject object.
+function AIObject.new() end
+
+---Constructor for Objects.AIObject
+---@return AIObject # A new AIObject object.
+function Objects.AIObject.new() end
+
+---Constructor for AIObject (alias for AIObject.new)
+---@return AIObject # A new AIObject object.
+function AIObject() end
+
+---Constructor for Objects.AIObject (alias for Objects.AIObject.new)
+---@return AIObject # A new AIObject object.
+function Objects.AIObject() end
+
+
+---Basic cameras that can point at Lara or at a CAMERA_TARGET.
+---@class Camera
+Camera = {}
+
+---Module-prefixed alias for Camera
+Objects.Camera = Camera
+
+---Get the camera's position.
+---@return Vec3 # Camera's position.
+function Camera:GetPosition() end
+
+---Set the camera's position.
+---@param position Vec3 # The new position of the camera.
+function Camera:SetPosition(position) end
+
+---Get the camera's unique string identifier.
+---@return string # the camera's name.
+function Camera:GetName() end
+
+---Set the camera's name (its unique string identifier).
+---@param name string # The camera's new name.
+function Camera:SetName(name) end
+
+---Get the current room of the camera.
+---@return Room # Current room of the camera.
+function Camera:GetRoom() end
+
+---Get the current room number of the camera.
+---@return integer # Number representing the current room of the camera.
+function Camera:GetRoomNumber() end
+
+---Set room of camera.
+---This is used in conjunction with SetPosition to teleport the camera to a new room.
+---@param ID integer # The ID of the new room.
+function Camera:SetRoomNumber(ID) end
+
+---Activate the camera for the current game frame.
+---@param target Moveable? # If you put a moveable, the camera will look at it. Otherwise, it will look at Lara. (optional)
+function Camera:Play(target) end
+
+---Constructor for Camera
+---@return Camera # A new Camera object.
+function Camera.new() end
+
+---Constructor for Objects.Camera
+---@return Camera # A new Camera object.
+function Objects.Camera.new() end
+
+---Constructor for Camera (alias for Camera.new)
+---@return Camera # A new Camera object.
+function Camera() end
+
+---Constructor for Objects.Camera (alias for Objects.Camera.new)
+---@return Camera # A new Camera object.
+function Objects.Camera() end
+
+
+---Class for player-only functions.
+---Do not try to create an object of this type.
+---Use the built-in *Lara* variable instead.
+---LaraObject inherits all the functions of Objects.Moveable|Moveable.
+---@class LaraObject : Moveable
+LaraObject = {}
+
+---Module-prefixed alias for LaraObject
+Objects.LaraObject = LaraObject
+
+---Set the player's poison value.
+---@param poison integer? # New poison value. __default: 0, max: 128__ (optional)
+function LaraObject:SetPoison(poison) end
+
+---Get the player's poison value.
+---@return integer # Poison value.
+function LaraObject:GetPoison() end
+
+---Set the player's air value.
+---@param air integer # New air value. __max: 1800__
+function LaraObject:SetAir(air) end
+
+---Get the player's air value.
+---@return integer # Air value.
+function LaraObject:GetAir() end
+
+---Set the player's wetness value, causing drips.
+---@param wetness integer # New wetness value. __max: 255__
+function LaraObject:SetWet(wetness) end
+
+---Get the player's wetness value.
+---@return integer # Wetness value.
+function LaraObject:GetWet() end
+
+---Set the player's stamina value.
+---@param New integer # stamina value. __max: 120__
+function LaraObject:SetStamina(New) end
+
+---Get the player's stamina value.
+---@return integer # Stamina value.
+function LaraObject:GetStamina() end
+
+---Get the player's airborne status (set when jumping and falling).
+---@return boolean # True if airborne, otherwise false.
+function LaraObject:GetAirborne() end
+
+---Set the player's airborne status.
+---@param airborne boolean # New airborne status.
+function LaraObject:SetAirborne(airborne) end
+
+---Undraw a weapon if it is drawn and throw away a flare if currently holding one.
+function LaraObject:UndrawWeapon() end
+
+---Discard a held torch.
+function LaraObject:DiscardTorch() end
+
+---Get the player's hand status.
+---@return HandStatus # Hand status.
+function LaraObject:GetHandStatus() end
+
+---Get the player's weapon type.
+---@return WeaponType # Current weapon type.
+function LaraObject:GetWeaponType() end
+
+---Set the player's weapon type.
+---@param weaponType WeaponType # New weapon type to set.
+---@param activate boolean? # If `true`, also draw the weapons or set torch lit. If `false`, keep weapons holstered or leave torch unlit. (default: `false`)
+function LaraObject:SetWeaponType(weaponType, activate) end
+
+---Get player weapon ammo type.
+---@return AmmoType # Player weapon ammo type.
+function LaraObject:GetAmmoType() end
+
+---Get current weapon's ammo count.
+---@return integer # Current ammo count (-1 if infinite).
+function LaraObject:GetAmmoCount() end
+
+---Get current vehicle, if it exists.
+---@return Moveable # Current vehicle (nil if no vehicle present).
+function LaraObject:GetVehicle() end
+
+---Get the player's current targeted moveable (if it exists).
+---@return Moveable # Target moveable (nil if the player is not currently targeting a moveable).
+function LaraObject:GetTarget() end
+
+---Get the player's current interacted moveable (if it exists).
+---@return Moveable # Interacted moveable (nil if the player is not interacting with a moveable).
+function LaraObject:GetInteractedMoveable() end
+
+---Check if a held torch is lit.
+---@return boolean # True if lit, otherwise false (also false if there is no torch in hand).
+function LaraObject:IsTorchLit() end
+
+---Align the player with a moveable object for interaction.
+---@param mov Moveable # Moveable object to align the player with.
+---@param animNumber integer? # The animation to play after alignment is complete. (default: `197 (BUTTON_PUSH)`)
+---@param offset Vec3? # Relative position offset from the moveable. (default: `Vec3(0, 0, 312)`)
+---@param minOffsetConstraint Vec3? # Minimum relative offset constraint. (default: `Vec3(-256, -512, 0)`)
+---@param maxOffsetConstraint Vec3? # Maximum relative offset constraint. (default: `Vec3(256, 0, 512)`)
+---@param minRotConstraint Rotation? # Minimum relative rotation constraint. (default: `Rotation(-10, -40, -10)`)
+---@param maxRotConstraint Rotation? # Maximum relative rotation constraint. (default: `Rotation(10, 40, 10)`)
+---@param actionID ActionID? # Input action ID to trigger the alignment. (default: `Input.ActionID.ACTION`)
+function LaraObject:Interact(mov, animNumber, offset, minOffsetConstraint, maxOffsetConstraint, minRotConstraint, maxRotConstraint, actionID) end
+
+---Test the player against a moveable object for interaction.
+---@param mov Moveable # Moveable object to align the player with.
+---@param minOffsetConstraint Vec3? # Minimum relative offset constraint. (default: `Vec3(-256, -512, 0)`)
+---@param maxOffsetConstraint Vec3? # Maximum relative offset constraint. (default: `Vec3(256, 0, 512)`)
+---@param minRotConstraint Rotation? # Minimum relative rotation constraint. (default: `Rotation(-10, -40, -10)`)
+---@param maxRotConstraint Rotation? # Maximum relative rotation constraint. (default: `Rotation(10, 40, 10)`)
+---@return boolean # Returns true if the player is inside the specified bounds.
+function LaraObject:TestInteraction(mov, minOffsetConstraint, maxOffsetConstraint, minRotConstraint, maxRotConstraint) end
+
+---Constructor for LaraObject
+---@return LaraObject # A new LaraObject object.
+function LaraObject.new() end
+
+---Constructor for Objects.LaraObject
+---@return LaraObject # A new LaraObject object.
+function Objects.LaraObject.new() end
+
+---Constructor for LaraObject (alias for LaraObject.new)
+---@return LaraObject # A new LaraObject object.
+function LaraObject() end
+
+---Constructor for Objects.LaraObject (alias for Objects.LaraObject.new)
+---@return LaraObject # A new LaraObject object.
+function Objects.LaraObject() end
+
+
+---Represents a moveable object in the game world.
+---Examples include the player, traps, enemies, doors, and pickups.
+---See also Objects.LaraObject for player-specific features.
+---@class Moveable
+Moveable = {}
+
+---Module-prefixed alias for Moveable
+Objects.Moveable = Moveable
+
+---Used to generate a new moveable dynamically at runtime.
+---For more information on each parameter, see the associated getters and setters.
+---If you do not know what to set for these, most can just be ignored (see usage).
+---@param objectID ObjID # Object ID.
+---@param name string # Lua name.
+---@param position Vec3 # Position in level.
+---@param rotation Rotation? # Rotation about x, y, and z axes. (optional)
+---@param roomNumber integer? # The room number the moveable is in. Needed if you are dealing with overlapping rooms and need to force certain room number. (optional)
+---@param animNumber integer? # Animation number. (optional)
+---@param frameNumber integer? # Frame number. (optional)
+---@param hp integer? # Hit points. (optional)
+---@param OCB integer? # Object code bits. (optional)
+---@param AIBits table? # Table with six AI bits. (optional)
+---@return Moveable # A new Moveable object.
+function Moveable.new(objectID, name, position, rotation, roomNumber, animNumber, frameNumber, hp, OCB, AIBits) end
+
+---Used to generate a new moveable dynamically at runtime.
+---For more information on each parameter, see the associated getters and setters.
+---If you do not know what to set for these, most can just be ignored (see usage).
+---@param objectID ObjID # Object ID.
+---@param name string # Lua name.
+---@param position Vec3 # Position in level.
+---@param rotation Rotation? # Rotation about x, y, and z axes. (optional)
+---@param roomNumber integer? # The room number the moveable is in. Needed if you are dealing with overlapping rooms and need to force certain room number. (optional)
+---@param animNumber integer? # Animation number. (optional)
+---@param frameNumber integer? # Frame number. (optional)
+---@param hp integer? # Hit points. (optional)
+---@param OCB integer? # Object code bits. (optional)
+---@param AIBits table? # Table with six AI bits. (optional)
+---@return Moveable # A new Moveable object.
+function Objects.Moveable.new(objectID, name, position, rotation, roomNumber, animNumber, frameNumber, hp, OCB, AIBits) end
+
+---Retrieve the object ID from a moveable.
+---@return ObjID # A number representing the object ID of the moveable.
+function Moveable:GetObjectID() end
+
+---Change the moveable's object ID.
+---This will literally change the moveable.
+---@param objectID ObjID # The new ID.
+function Moveable:SetObjectID(objectID) end
+
+---Set the name of the function to be called when the moveable is shot by Lara.
+---Note that this will be triggered twice when shot with both pistols at once.
+---@param function_ function # Callback function in LevelFuncs hierarchy to call when moveable is shot.
+function Moveable:SetOnHit(function_) end
+
+---Set the name of the function to be called when the moveable is destroyed/killed.
+---Note that enemy death often occurs at the end of an animation, and not at the exact moment the enemy's HP becomes zero.
+---@param function_ function # Callback function in LevelFuncs hierarchy to call when moveable is killed.
+function Moveable:SetOnKilled(function_) end
+
+---Set the function to be called when this moveable collides with another moveable.
+---@param function_ function # Callback function to be called (must be in LevelFuncs hierarchy). This function can take two arguments; these will store the two Moveables taking part in the collision.
+function Moveable:SetOnCollidedWithObject(function_) end
+
+---Set the function called when this moveable collides with room geometry (e.g.
+---a wall or floor).
+---This function can take an argument that holds the Moveable that collided with geometry.
+---@param function_ function # Callback function to be called (must be in LevelFuncs hierarchy).
+function Moveable:SetOnCollidedWithRoom(function_) end
+
+---Get the moveable's name (its unique string identifier).
+---This corresponds with the "Lua Name" field in a moveable's properties in Tomb Editor.
+---@return string # The moveable's name.
+function Moveable:GetName() end
+
+---Set the moveable's name (its unique string identifier).
+---It cannot be blank and cannot share a name with any other existing moveable.
+---@param name string # The new moveable's name.
+---@return boolean # true if name was successfully set, false otherwise (e.g. if another moveable has the name already).
+function Moveable:SetName(name) end
+
+---Get the moveable's position.
+---@return Vec3 # Moveable's position.
+function Moveable:GetPosition() end
+
+---Set the moveable's position.
+---@param position Vec3 # The new position of the moveable.
+---@param updateRoom boolean? # Will room changes be automatically detected? Set to false if you are using overlapping rooms. (default: `true`)
+function Moveable:SetPosition(position, updateRoom) end
+
+---Get the moveable's joint position with an optional relative offset.
+---@param jointIndex integer # Index of a joint to get position.
+---@param offset Vec3? # Offset relative to the joint. (optional)
+---@return Vec3 # World position.
+function Moveable:GetJointPosition(jointIndex, offset) end
+
+---Get the moveable's joint rotation.
+---@param index integer # Index of a joint to get rotation.
+---@return Rotation # Moveable's joint rotation.
+function Moveable:GetJointRotation(index) end
+
+---Get the moveable's rotation.
+---@return Rotation # Moveable's rotation.
+function Moveable:GetRotation() end
+
+---Get the moveable's visual scale.
+---@return Vec3 # Moveable's visual scale.
+function Moveable:GetScale() end
+
+---Set the moveable's rotation.
+---@param rotation Rotation # The moveable's new rotation.
+function Moveable:SetRotation(rotation) end
+
+---Set the moveable's visual scale.
+---Does not affect collision.
+---@param scale Vec3 # New visual scale.
+function Moveable:SetScale(scale) end
+
+---Get current HP (hit points / health points).
+---@return integer # The amount of HP the moveable currently has.
+function Moveable:GetHP() end
+
+---Set current HP (hit points / health points).
+---Clamped to [0, 32767] for "intelligent" entities (i.e.
+---anything with AI); clamped to [-32767, 32767] otherwise.
+---@param HP integer # The amount of HP to give the moveable.
+function Moveable:SetHP(HP) end
+
+---Get HP (hit points / health points) definded for that object ID.
+---@return integer # The moveable's slot default hit points.
+function Moveable:GetSlotHP() end
+
+---Get OCB (object code bit) of the moveable.
+---@return integer # The moveable's current OCB value.
+function Moveable:GetOCB() end
+
+---Set OCB (object code bit) of the moveable.
+---@param OCB integer # The new value for the moveable's OCB.
+function Moveable:SetOCB(OCB) end
+
+---Set the effect for this moveable.
+---@param effect EffectID # Type of effect to assign.
+---@param timeout number? # Time (in seconds) after which effect turns off. (optional)
+function Moveable:SetEffect(effect, timeout) end
+
+---Set custom colored burn effect to moveable.
+---@param color1 Color # The primary color of the effect (also used for lighting).
+---@param color2 Color # The secondary color of the effect.
+---@param timeout number? # Time (in seconds) after which effect turns off. (optional)
+function Moveable:SetCustomEffect(color1, color2, timeout) end
+
+---Get current moveable effect.
+---@return EffectID # Effect type currently assigned.
+function Moveable:GetEffect() end
+
+---Get the value stored in ItemFlags[index].
+---@param index integer # Index of the ItemFlag, can be between 0 and 7.
+---@return integer # The value contained in the ItemFlags[index].
+function Moveable:GetItemFlags(index) end
+
+---Stores a value in ItemFlags[index].
+---@param value integer # Value to store in the moveable's ItemFlags[index].
+---@param index integer # Index of the ItemFlag where to store the value.
+function Moveable:SetItemFlags(value, index) end
+
+---Get the OCB of the AI object that the enemy is currently trying to reach.
+---Used exclusively by: - SOPHIA_LEIGH - VON_CROY - The GUIDE, only if he has ItemFlags[2] bit 1 set.
+---@return integer # The value contained in the LocationAI of the creature.
+function Moveable:GetLocationAI() end
+
+---Updates the AI object OCB that the enemy should try to reach.
+---Used exclusively by: - SOPHIA_LEIGH - VON_CROY - The GUIDE, only if he has ItemFlags[2] bit 1 set (otherwise, he ignore it and simply look for the next AI object OCB until he reaches the one set by the last call to flipeffect 30).
+---@param value integer # Value to store.
+function Moveable:SetLocationAI(value) end
+
+---Get the moveable's color.
+---@return Color # Moveable's color.
+function Moveable:GetColor() end
+
+---Set the moveable's color.
+---@param color Color # The new color of the moveable.
+function Moveable:SetColor(color) end
+
+---Get AIBits of a moveable.
+---This will return a table with six values, each corresponding to an active behaviour.
+---If the moveable is in a certain AI mode, the table will have a *1* in the corresponding cell.
+---Otherwise, the cell will hold a *0*.
+---1 - Guard 2 - Ambush 3 - Patrol 1 4 - Modify 5 - Follow 6 - Patrol 2.
+---@return table # A table of AI bits.
+function Moveable:GetAIBits() end
+
+---Set AIBits of a moveable.
+---Use this to force a moveable into a certain AI mode or modes, as if a certain nullmesh (or more than one) had suddenly spawned beneath their feet.
+---@param bits table # A table of AI bits.
+function Moveable:SetAIBits(bits) end
+
+---Retrieve the index of the current state.
+---This corresponds to the number shown in the item's state ID field in WadTool.
+---@return integer # The index of the active state.
+function Moveable:GetState() end
+
+---Retrieve the index of the target state.
+---This corresponds to the state the moveable is trying to get into, which is sometimes different from the active state.
+---@return integer # The index of the target state.
+function Moveable:GetTargetState() end
+
+---Set the moveable's state to the one specified by the given index.
+---Performs no bounds checking.
+---*Ensure the number given is correct, else moveable may end up in corrupted animation state.*.
+---@param index integer # The index of the desired state.
+function Moveable:SetState(index) end
+
+---Retrieve the slot ID of the animation.
+---In certain cases, moveable may play animations from another object slot.
+---Use this function when you need to identify such cases.
+---@return integer # Animation slot ID.
+function Moveable:GetAnimSlot() end
+
+---Retrieve the index of the current animation.
+---This corresponds to the number shown in the item's animation list in WadTool.
+---@return integer # The index of the active animation.
+function Moveable:GetAnim() end
+
+---Set the moveable's animation to the one specified by the given index.
+---Performs no bounds checking.
+---*Ensure the number given is correct, else moveable may end up in corrupted animation state.*.
+---@param index integer # The index of the desired animation.
+---@param slot integer? # Slot ID of the desired anim (if omitted, moveable's own slot ID is used). (optional)
+function Moveable:SetAnim(index, slot) end
+
+---Retrieve frame number.
+---This is the current frame of the moveable's active animation.
+---@return integer # The current frame of the active animation.
+function Moveable:GetFrame() end
+
+---Get the moveable's velocity.
+---In most cases, only Z and Y components are used as forward and vertical velocity.
+---In some cases, primarily NPCs, X component is used as side velocity.
+---@return Vec3 # Current moveable velocity.
+function Moveable:GetVelocity() end
+
+---Set the moveable's velocity to specified value.
+---In most cases, only Z and Y components are used as forward and vertical velocity.
+---In some cases, primarily NPCs, X component is used as side velocity.
+---@param velocity Vec3 # Velocity represented as vector.
+function Moveable:SetVelocity(velocity) end
+
+---Set frame number.
+---This will move the animation to the given frame.
+---The number of frames in an animation can be seen under the heading "End frame" in the WadTool animation editor.
+---If the animation has no frames, the only valid argument is -1.
+---@param frame integer # The new frame number.
+function Moveable:SetFrame(frame) end
+
+---Get the end frame number of the moveable's active animation.
+---This is the "End Frame" set in WADTool for the animation.().
+---@return integer # End frame number of the active animation.
+function Moveable:GetEndFrame() end
+
+---Determine whether the moveable is active or not.
+---@return boolean # True if the moveable is active.
+function Moveable:GetActive() end
+
+---Get the hit status of the moveable.
+---@return boolean # true if the moveable was hit by something in the last gameplay frame, false otherwise.
+function Moveable:GetHitStatus() end
+
+---Get the current room of the moveable.
+---@return Room # Current room of the moveable.
+function Moveable:GetRoom() end
+
+---Get the current room number of the moveable.
+---@return integer # Number representing the current room of the moveable.
+function Moveable:GetRoomNumber() end
+
+---Set the room ID of a moveable.
+---Use this if not using SetPosition's automatic room update - for example, when dealing with overlapping rooms.
+---@param roomID integer # New room's ID.
+function Moveable:SetRoomNumber(roomID) end
+
+---Get the moveable's status.
+---@return MoveableStatus # Status.
+function Moveable:GetStatus() end
+
+---Set the moveable's status.
+---@param status MoveableStatus # The new status of the moveable.
+function Moveable:SetStatus(status) end
+
+---Get number of meshes for a particular moveable.
+---Returns number of meshes in an object.
+---@return integer # Number of meshes.
+function Moveable:GetMeshCount() end
+
+---Get visibility state of a specified mesh of a moveable.
+---Returns true if specified mesh is visible on a moveable, and false if it is not visible.
+---@param index integer # Index of a mesh.
+---@return boolean # Visibility status.
+function Moveable:GetMeshVisible(index) end
+
+---Makes specified mesh visible or invisible.
+---Use this to show or hide a specified mesh of a moveable.
+---@param index integer # Index of a mesh.
+---@param isVisible boolean # true if you want the mesh to be visible, false otherwise.
+function Moveable:SetMeshVisible(index, isVisible) end
+
+---Shatters specified mesh and makes it invisible.
+---Note that you can re-enable mesh later by using SetMeshVisible().
+---@param index integer # Index of a mesh to shatter.
+function Moveable:ShatterMesh(index) end
+
+---Get state of specified mesh swap of a moveable.
+---Returns true if specified mesh is swapped on a moveable, and false if it is not swapped.
+---@param index integer # Index of a mesh.
+---@return boolean # Mesh swap status.
+function Moveable:GetMeshSwapped(index) end
+
+---Set state of specified mesh swap of a moveable.
+---Use this to swap specified mesh of a moveable.
+---@param index integer # Index of a mesh.
+---@param objectID integer # ID of a slot to get meshswap from.
+---@param swapIndex integer? # Index of a mesh from meshswap slot to use. (optional)
+function Moveable:SwapMesh(index, objectID, swapIndex) end
+
+---Unset specified mesh swap of a moveable.
+---Use this to bring back original unswapped mesh.
+---@param index integer # Index of a mesh to unswap.
+function Moveable:UnswapMesh(index) end
+
+---Swap skinned mesh of a moveable.
+---Use this to replace one skinned mesh with another.
+---@param objectID integer # ID of a slot to get skinned meshswap from.
+---@param swapIndex integer? # If set, swaps skinned mesh with bone mesh with a specified index. Use if you have several skinned meshes (e.g. outfits) in a single slot. (optional)
+function Moveable:SwapSkinnedMesh(objectID, swapIndex) end
+
+---Unset skinned mesh swap of a moveable.
+---Use this to bring back original unswapped skinned mesh.
+function Moveable:UnswapSkinnedMesh() end
+
+---Enable the item, as if a trigger for it had been stepped on.
+---@param timeout number? # Time (in seconds) after which moveable automatically disables. (optional)
+function Moveable:Enable(timeout) end
+
+---Disable the item, as if an antitrigger for it had been stepped on.
+---For example, it will close an open door or extinguish a flame emitter.
+---Note that this will not trigger an OnKilled callback.
+function Moveable:Disable() end
+
+---Explode this moveable.
+---Also kills and disables it.
+function Moveable:Explode() end
+
+---Shatter this moveable.
+---Also kills and disables it.
+function Moveable:Shatter() end
+
+---Get the item's collision state.
+---@return boolean # Item's collision state.
+function Moveable:GetCollidable() end
+
+---Set the item's collision.
+---@param collidable boolean # true if the caller should be collidable, false if no collision should occur.
+function Moveable:SetCollidable(collidable) end
+
+---Get the item's visibility state.
+---@return boolean # Item's visibility state.
+function Moveable:GetVisible() end
+
+---Set the item's visibility.
+---An invisible item will have collision turned off, as if it no longer exists in the game world.
+---@param visible boolean # true if the caller should become visible, false if it should become invisible.
+function Moveable:SetVisible(visible) end
+
+---Test if the moveable is in a valid state.
+---Indicates that it has not been destroyed through Lua or killed by Lara.
+---@return boolean # true if the moveable is still not destroyed.
+function Moveable:GetValid() end
+
+---Destroy the moveable.
+---This will mean it can no longer be used, except to re-initialize it with another moveable.
+function Moveable:Destroy() end
+
+---Attach camera to a moveable.
+---@param mesh integer # Mesh of a moveable to use as a camera position.
+---@param target Moveable # Target moveable to attach camera to.
+---@param targetMesh integer # Mesh of a target moveable to use as a camera target.
+function Moveable:AttachObjCamera(mesh, target, targetMesh) end
+
+---Borrow animation from an object.
+---@param objectID ObjID # Object ID to take animation and state ID from.
+---@param animNumber integer # Animation from object.
+---@param stateID integer # State from object.
+function Moveable:AnimFromObject(objectID, animNumber, stateID) end
+
+---Show interaction highlight for the object.
+---Can be useful if you have scripted an interaction with it.
+function Moveable:ShowInteractionHighlight() end
+
+---Constructor function for Moveable (alias for Moveable.new)
+---@param objectID ObjID # Object ID.
+---@param name string # Lua name.
+---@param position Vec3 # Position in level.
+---@param rotation Rotation? # Rotation about x, y, and z axes. (optional)
+---@param roomNumber integer? # The room number the moveable is in. Needed if you are dealing with overlapping rooms and need to force certain room number. (optional)
+---@param animNumber integer? # Animation number. (optional)
+---@param frameNumber integer? # Frame number. (optional)
+---@param hp integer? # Hit points. (optional)
+---@param OCB integer? # Object code bits. (optional)
+---@param AIBits table? # Table with six AI bits. (optional)
+---@return Moveable # A new Moveable object.
+function Moveable(objectID, name, position, rotation, roomNumber, animNumber, frameNumber, hp, OCB, AIBits) end
+
+---Constructor function for Objects.Moveable (alias for Objects.Moveable.new)
+---@param objectID ObjID # Object ID.
+---@param name string # Lua name.
+---@param position Vec3 # Position in level.
+---@param rotation Rotation? # Rotation about x, y, and z axes. (optional)
+---@param roomNumber integer? # The room number the moveable is in. Needed if you are dealing with overlapping rooms and need to force certain room number. (optional)
+---@param animNumber integer? # Animation number. (optional)
+---@param frameNumber integer? # Frame number. (optional)
+---@param hp integer? # Hit points. (optional)
+---@param OCB integer? # Object code bits. (optional)
+---@param AIBits table? # Table with six AI bits. (optional)
+---@return Moveable # A new Moveable object.
+function Objects.Moveable(objectID, name, position, rotation, roomNumber, animNumber, frameNumber, hp, OCB, AIBits) end
+
+
+---Room object.
+---@class Room
+Room = {}
+
+---Module-prefixed alias for Room
+Objects.Room = Room
+
+---Get the room's number.
+---If room is in flipped state, it will indicate the flipped room number.
+---@return integer # Room number.
+function Room:GetRoomNumber() end
+
+---Get the room's unique string identifier.
+---@return string # Room name.
+function Room:GetName() end
+
+---Get the room's ambient light color.
+---@return Color # Ambient light color.
+function Room:GetColor() end
+
+---Get the room's reverb type.
+---@return RoomReverb # Reverb type.
+function Room:GetReverbType() end
+
+---Set the room's unique string identifier.
+---@param name string # New name.
+function Room:SetName(name) end
+
+---Set the room's reverb type.
+---@param reverb RoomReverb # Reverb type.
+function Room:SetReverbType(reverb) end
+
+---Set the room's specified flag.
+---@param flagID RoomFlagID # Room flag ID.
+---@param value boolean # Boolean to set the flag to.
+function Room:SetFlag(flagID, value) end
+
+---Get the room's specified flag value (true or false).
+---@param flagID RoomFlagID # Room flag ID.
+function Room:GetFlag(flagID) end
+
+---Check if the specified tag is set for the room.
+---@param tag string # Text tag to check (case sensitive).
+---@return boolean # Boolean of the tag's presence.
+function Room:IsTagPresent(tag) end
+
+---Check if the room is active.
+---@return boolean # Boolean of the room's active status.
+function Room:GetActive() end
+
+---Constructor for Room
+---@return Room # A new Room object.
+function Room.new() end
+
+---Constructor for Objects.Room
+---@return Room # A new Room object.
+function Objects.Room.new() end
+
+---Constructor for Room (alias for Room.new)
+---@return Room # A new Room object.
+function Room() end
+
+---Constructor for Objects.Room (alias for Objects.Room.new)
+---@return Room # A new Room object.
+function Objects.Room() end
+
+
+---Represents a sink object.
+---@class Sink
+Sink = {}
+
+---Module-prefixed alias for Sink
+Objects.Sink = Sink
+
+---Get this sink's unique string identifier.
+---@return string # Name.
+function Sink:GetName() end
+
+---Get this sink's world position.
+---@return Vec3 # World position.
+function Sink:GetPosition() end
+
+---Get this sink's strength.
+---@return integer # Strength.
+function Sink:GetStrength() end
+
+---Set this sink's unique string identifier.
+---@param name string # New name.
+function Sink:SetName(name) end
+
+---Set this sink's world position.
+---@param pos Vec3 # New world position.
+function Sink:SetPosition(pos) end
+
+---Set this sink's strength.
+---Higher numbers provide stronger currents.
+---Clamped to the range [1, 32].
+---@param strength integer # New strength.
+function Sink:SetStrength(strength) end
+
+---Constructor for Sink
+---@return Sink # A new Sink object.
+function Sink.new() end
+
+---Constructor for Objects.Sink
+---@return Sink # A new Sink object.
+function Objects.Sink.new() end
+
+---Constructor for Sink (alias for Sink.new)
+---@return Sink # A new Sink object.
+function Sink() end
+
+---Constructor for Objects.Sink (alias for Objects.Sink.new)
+---@return Sink # A new Sink object.
+function Objects.Sink() end
+
+
+---Sound source.
+---@class SoundSource
+SoundSource = {}
+
+---Module-prefixed alias for SoundSource
+Objects.SoundSource = SoundSource
+
+---Get the sound source's position.
+---@return Vec3 # Sound source's position.
+function SoundSource:GetPosition() end
+
+---Set the sound source's position.
+---@param position Vec3 # The new position of the sound source.
+function SoundSource:SetPosition(position) end
+
+---Get the sound source's unique string identifier.
+---@return string # The sound source's name.
+function SoundSource:GetName() end
+
+---Set the sound source's unique string identifier.
+---@param name string # The sound source's new name.
+function SoundSource:SetName(name) end
+
+---Get the sound source's sound ID.
+---@return integer # The ID of the sound.
+function SoundSource:GetSoundID() end
+
+---Set the sound source's ID.
+---@param name integer # The sound source's new sound ID.
+function SoundSource:SetSoundID(name) end
+
+---Constructor for SoundSource
+---@return SoundSource # A new SoundSource object.
+function SoundSource.new() end
+
+---Constructor for Objects.SoundSource
+---@return SoundSource # A new SoundSource object.
+function Objects.SoundSource.new() end
+
+---Constructor for SoundSource (alias for SoundSource.new)
+---@return SoundSource # A new SoundSource object.
+function SoundSource() end
+
+---Constructor for Objects.SoundSource (alias for Objects.SoundSource.new)
+---@return SoundSource # A new SoundSource object.
+function Objects.SoundSource() end
+
+
+---Represents a static object in the game world.
+---@class Static
+Static = {}
+
+---Module-prefixed alias for Static
+Objects.Static = Static
+
+---Get this static's unique string identifier.
+---@return string # Name string.
+function Static:GetName() end
+
+---Get this static's slot ID.
+---@return integer # Slot ID.
+function Static:GetSlot() end
+
+---Get this static's world position.
+---@return Vec3 # World position.
+function Static:GetPosition() end
+
+---Get this static's world rotation.
+---@return Rotation # World rotation.
+function Static:GetRotation() end
+
+---Get this static's world scale.
+---@return Vec3 # World scale.
+function Static:GetScale() end
+
+---Get this static's color.
+---@return Color # Color.
+function Static:GetColor() end
+
+---Get this static's hit points.
+---Used only with shatterable statics.
+---@return integer # Hit points.
+function Static:GetHP() end
+
+---Get this static's visibility status.
+---@return boolean # Status. true means visible, false otherwise.
+function Static:GetActive() end
+
+---Get this static's collision status.
+---@return boolean # Collision status. true if can be collided with, false otherwise.
+function Static:GetCollidable() end
+
+---Get this static's solid collision status.
+---@return boolean # Solid Status. true if solid, false if soft.
+function Static:GetSolid() end
+
+---Set this static's unique identifier string.
+---@param name string # New name.
+function Static:SetName(name) end
+
+---Set this static's slot ID.
+---@param slotID integer # New slot ID.
+function Static:SetSlot(slotID) end
+
+---Set this static's world position.
+---@param pos Vec3 # New world position.
+function Static:SetPosition(pos) end
+
+---Set this static's rotation.
+---@param rot Rotation # New rotation.
+function Static:SetRotation(rot) end
+
+---Set this static's world scale.
+---@param scale Vec3 # New world scale.
+function Static:SetScale(scale) end
+
+---Set this static's color.
+---@param color Color # New color.
+function Static:SetColor(color) end
+
+---Set this static's hit points.
+---Used only with shatterable statics.
+---@param hitPoints integer # New hit points.
+function Static:SetHP(hitPoints) end
+
+---Set this static's solid collision status.
+---@param status boolean # New status, true is solid, false is soft.
+function Static:SetSolid(status) end
+
+---Set this static's collision status.
+---@param collidable boolean # New collision status. true if can be collided with, false: no collision.
+function Static:SetCollidable(collidable) end
+
+---Enable this static.
+---Used when previously shattered disabled manually.
+function Static:Enable() end
+
+---Disable this static.
+function Static:Disable() end
+
+---Shatter this static.
+function Static:Shatter() end
+
+---Constructor for Static
+---@return Static # A new Static object.
+function Static.new() end
+
+---Constructor for Objects.Static
+---@return Static # A new Static object.
+function Objects.Static.new() end
+
+---Constructor for Static (alias for Static.new)
+---@return Static # A new Static object.
+function Static() end
+
+---Constructor for Objects.Static (alias for Objects.Static.new)
+---@return Static # A new Static object.
+function Objects.Static() end
+
+
+---Activator volume.
+---@class Volume
+Volume = {}
+
+---Module-prefixed alias for Volume
+Objects.Volume = Volume
+
+---Get the unique string identifier of this volume.
+---@return string # Name.
+function Volume:GetName() end
+
+---Get the position of this volume.
+---@return Vec3 # Position.
+function Volume:GetPosition() end
+
+---Get the rotation of this volume.
+---@return Rotation # Rotation.
+function Volume:GetRotation() end
+
+---Get this scale of this volume.
+---@return Vec3 # Scale.
+function Volume:GetScale() end
+
+---Set the unique string identifier of this volume.
+---@param name string # New name.
+function Volume:SetName(name) end
+
+---Set the position of this volume.
+---@param pos Vec3 # New position.
+function Volume:SetPosition(pos) end
+
+---Set the rotation of this volume.
+---@param rot Rotation # New rotation.
+function Volume:SetRotation(rot) end
+
+---Set the scale of the volume.
+---@param scale Vec3 # New scale.
+function Volume:SetScale(scale) end
+
+---Determine if this volume is active.
+---@return boolean # Boolean representing active status.
+function Volume:GetActive() end
+
+---Determine if a moveable is inside this volume.
+---@param moveable Moveable # Moveable to be checked for containment.
+---@return boolean # Boolean representing containment status.
+function Volume:IsMoveableInside(moveable) end
+
+---Enable this volume.
+function Volume:Enable() end
+
+---Disable this volume.
+function Volume:Disable() end
+
+---Clear the activators for this volume, allowing it to trigger again.
+function Volume:ClearActivators() end
+
+---Constructor for Volume
+---@return Volume # A new Volume object.
+function Volume.new() end
+
+---Constructor for Objects.Volume
+---@return Volume # A new Volume object.
+function Objects.Volume.new() end
+
+---Constructor for Volume (alias for Volume.new)
+---@return Volume # A new Volume object.
+function Volume() end
+
+---Constructor for Objects.Volume (alias for Objects.Volume.new)
+---@return Volume # A new Volume object.
+function Objects.Volume() end
+
+
+---Get a Moveable by its name.
+---@param name string # The unique name of the moveable as set in, or generated by, Tomb Editor.
+---@return Moveable # A non-owning Moveable referencing the item.
+function Objects.GetMoveableByName(name) end
+
+---Get moveables by their slot.
+---@param slot ObjID # The unique slot of the moveable, e.g. `Objects.ObjID.ANIMATING1`.
+---@return table # Table of moveables referencing the given slot.
+function Objects.GetMoveablesBySlot(slot) end
+
+---Get a Static by its name.
+---@param name string # The unique name of the static mesh as set in, or generated by, Tomb Editor.
+---@return Static # A non-owning Static referencing the static mesh.
+function Objects.GetStaticByName(name) end
+
+---Get statics by their slot.
+---@param slot integer # The unique numerical slot of the static mesh.
+---@return table # Table of static meshes referencing the given slot.
+function Objects.GetStaticsBySlot(slot) end
+
+---Get a Camera by its name.
+---@param name string # The unique name of the camera as set in, or generated by, Tomb Editor.
+---@return Camera # A non-owning Camera referencing the camera.
+function Objects.GetCameraByName(name) end
+
+---Get a Sink by its name.
+---@param name string # The unique name of the sink as set in, or generated by, Tomb Editor.
+---@return Sink # A non-owning Sink referencing the sink.
+function Objects.GetSinkByName(name) end
+
+---Get a SoundSource by its name.
+---@param name string # The unique name of the sound source as set in, or generated by, Tomb Editor.
+---@return SoundSource # A non-owning SoundSource referencing the sound source.
+function Objects.GetSoundSourceByName(name) end
+
+---Get an AIObject by its name.
+---@param name string # The unique name of the AIObject as set in, or generated by, Tomb Editor.
+---@return AIObject # A non-owning AIObject referencing the AI object.
+function Objects.GetAIObjectByName(name) end
+
+---Get a Volume by its name.
+---@param name string # The unique name of the volume as set in, or generated by, Tomb Editor.
+---@return Volume # A non-owning Volume referencing the volume.
+function Objects.GetVolumeByName(name) end
+
+---Get a Room by its name.
+---@param name string # The unique name of the room as set in Tomb Editor.
+---@return Room # A non-owning Room referencing the room.
+function Objects.GetRoomByName(name) end
+
+---Get rooms by tag.
+---@param tag string # Tag to select rooms by.
+---@return table # Table of rooms containing the given tag.
+function Objects.GetRoomsByTag(tag) end
+
+---Check if a given script name is in use by any object type.
+---@param name string # The name to check.
+---@return boolean # True if name is in use and an object with a given name is present, false if not.
+function Objects.IsNameInUse(name) end
+
+return Objects
