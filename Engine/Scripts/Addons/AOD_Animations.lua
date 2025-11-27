@@ -25,7 +25,7 @@ LevelFuncs.External.AOD_Animations.FixLadderStopSnap = function()
 				Lara:SetAnim(163 --[[ LADDER_UP_STOP_LEFT ]])
 				local position = Lara:GetPosition()
 				position.y = position.y - 256
-				Lara:SetPosition(position)
+				Lara:SetPosition(position, false) -- Do not update rooms automatically, or Lara will get stuck if there are overlapping rooms
 			end
 			-- Stopped because a ledge was found and Lara is about to vault onto it
 			if (Lara:GetState() == 57 --[[ LADDER_UP ]] and Lara:GetTargetState() == 19 --[[ GRABBING ]]) then
@@ -38,7 +38,7 @@ LevelFuncs.External.AOD_Animations.FixLadderStopSnap = function()
 				Lara:SetAnim(166 --[[ LADDER_DOWN_STOP_LEFT ]])
 				local position = Lara:GetPosition()
 				position.y = position.y + 256
-				Lara:SetPosition(position)
+				Lara:SetPosition(position, false) -- Do not update rooms automatically, or Lara will get stuck if there are overlapping rooms
 			end 
 		end
 	end
