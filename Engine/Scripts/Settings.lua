@@ -9,7 +9,10 @@ local settings = Flow.Settings.new()
 	settings.Animations.crawlspaceSwandive = true
 	settings.Animations.sprintJump = true
 	settings.Animations.ledgeJumps = true
-	settings.Animations.poseTimeout = 0
+
+	-- Note: as I enabled the transition only at specific moments in the idle animation, the pose will not *always* start after 5 seconds:
+	-- It will simply never appear before 5 seconds, and when it begins will be random.
+	settings.Animations.poseTimeout = 5
 	
 	settings.Camera.binocularLightColor = Color(192, 192, 96)
 	settings.Camera.lasersightLightColor = Color(255, 0, 0)
@@ -39,7 +42,7 @@ local settings = Flow.Settings.new()
 	-- Hair[1] is normal player hair. Types [2] and [3] are for left and right young Lara hair.
 	
 	settings.Hair[1].rootMesh = 14
-	settings.Hair[1].offset = Vec3(-4, -16, -32)
+	settings.Hair[1].offset = Vec3(-4, -4, -32)
 	settings.Hair[1].indices = { 37, 39, 40, 38 }
 	
 	settings.Hair[2].rootMesh = 14
